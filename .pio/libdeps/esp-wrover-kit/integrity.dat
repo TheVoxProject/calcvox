@@ -1,0 +1,3 @@
+file://./lib/arduino-libhelix
+file://./lib/SdFat
+file://./lib/arduino-audio-tools/
