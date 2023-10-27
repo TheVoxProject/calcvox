@@ -1,0 +1,9 @@
+[submodule "lib/arduino-espeak-ng"]
+	path = lib/arduino-espeak-ng
+	url = https://github.com/pschatzmann/arduino-espeak-ng.git
+[submodule "lib/arduino-audio-tools"]
+	path = lib/arduino-audio-tools
+	url = https://github.com/pschatzmann/arduino-audio-tools.git
+[submodule "lib/SdFat"]
+	path = lib/SdFat
+	url = https://github.com/greiman/SdFat.git
