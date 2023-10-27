@@ -17,6 +17,9 @@ void setup() {
   // setup output
   audio_info espeak_info = espeak.audioInfo();
   auto cfg = analog.defaultConfig();
+  cfg.channels = espeak_info.channels; // 1
+  cfg.sample_rate = espeak_info.sample_rate; // 22050
+  cfg.bits_per_sample = espeak_info.bits_per_sample; // 16
   analog.begin(cfg);
 
 }
