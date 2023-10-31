@@ -1,3 +1,4 @@
-file://./lib/arduino-libhelix
-file://./lib/SdFat
 file://./lib/arduino-audio-tools/
+file://./lib/SdFat
+file://./lib/arduino-libhelix
+file://./lib/keypad

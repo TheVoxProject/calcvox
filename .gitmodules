@@ -13,3 +13,6 @@
 [submodule "lib/arduino-posix-fs"]
 	path = lib/arduino-posix-fs
 	url = https://github.com/pschatzmann/arduino-posix-fs
+[submodule "lib/Keypad"]
+	path = lib/Keypad
+	url = https://github.com/Chris--A/Keypad
