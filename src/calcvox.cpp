@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <Keypad.h>
 #include "AudioTools.h" // https://github.com/pschatzmann/arduino-audio-tools
 //#include "AudioLibs/AudioKit.h" // https://github.com/pschatzmann/arduino-audiokit
 #include "FileSystems.h" // https://github.com/pschatzmann/arduino-posix-fs
@@ -48,7 +47,7 @@ char getKey() {
     digitalWrite(rows[r], HIGH);
   }
 
-  return NO_KEY;
+  return '\0';
 }
 
 AnalogAudioStream analog ; // or replace with AudioKitStream for AudioKit
@@ -73,7 +72,7 @@ void setup() {
 void loop() {
   char key = getKey();
 
-  if (key != NO_KEY) {
+  if (key != '\0') {
     Serial.println(key);
   }
 }
