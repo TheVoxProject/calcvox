@@ -34,7 +34,7 @@ char getKey() {
 
     for (byte c = 0; c < COLUMN_NUM; c++) {
       if (digitalRead(cols[c]) == LOW) {
-        delay(50);
+        delay(10);
 
         if (digitalRead(cols[c]) == LOW) {
           digitalWrite(rows[r], HIGH);
@@ -74,5 +74,8 @@ void loop() {
 
   if (key != '\0') {
     Serial.println(key);
+  }
+  if (key == '1') {
+    espeak.say("Hello World");
   }
 }
