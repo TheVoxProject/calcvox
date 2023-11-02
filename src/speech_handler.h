@@ -1,9 +1,9 @@
 #pragma once
 
-#include <AudioTools.h>
-#include <FileSystems.h>
-#include <espeak.h>
-#include <SPI.h>
+#include "AudioTools.h"
+#include "FileSystems.h"
+#include "espeak.h"
+#include "SPI.h"
 
 class speech_handler {
 public:

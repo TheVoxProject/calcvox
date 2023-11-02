@@ -15,5 +15,5 @@ speech_handler::~speech_handler() {
 }
 
 void speech_handler::speak(const std::string& text, bool interrupt) {
-	espeak.say(text);
+	espeak.say(text.c_str());
 }
