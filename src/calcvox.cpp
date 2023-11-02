@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <keypad.h>
+#include <Keypad.h>
 #include "AudioTools.h" // https://github.com/pschatzmann/arduino-audio-tools
 //#include "AudioLibs/AudioKit.h" // https://github.com/pschatzmann/arduino-audiokit
 #include "FileSystems.h" // https://github.com/pschatzmann/arduino-posix-fs
