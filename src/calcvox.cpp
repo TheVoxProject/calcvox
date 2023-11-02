@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include <Keypad.h>
-#include "speech_handler.h"
+#include "AudioTools.h"
+#include "filesystems.h"
+#include "espeak.h"
+#include "SPI.h"
 
 const byte ROW_NUM = 3; 
 const byte COLUMN_NUM = 5; 
@@ -47,11 +50,18 @@ char getKey() {
   return NO_KEY;
 }
 
-AnalogAudioStream analog ; // or replace with AudioKitStream for AudioKit
-speech_handler speech(analog);
+AnalogAudioStream analog ;
+ESpeak espeak(analog);
 
 void setup() {
   Serial.begin(115200);
+	espeak.begin();
+	auto espeak_info = espeak.audioInfo();
+	auto cfg = analog.defaultConfig();
+	cfg.channels = espeak_info.channels; // 1
+	cfg.sample_rate = espeak_info.sample_rate; // 22050
+	cfg.bits_per_sample = espeak_info.bits_per_sample; // 16
+	analog.begin(cfg);
   setupKeypad();
 }
 
@@ -62,6 +72,6 @@ void loop() {
     Serial.println(key);
   }
   if (key == '1') {
-    speech.speak("Hello World");
+    espeak.say("Hello World");
   }
 }
