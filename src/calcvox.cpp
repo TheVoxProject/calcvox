@@ -5,56 +5,52 @@
 #include "espeak.h"
 #include "SPI.h"
 
-const byte ROW_NUM = 3; 
-const byte COLUMN_NUM = 5; 
+const byte ROWS = 3;
+const byte COLUMNS = 5;
 
-byte cols[COLUMN_NUM] = { 23,22,14,32,15 };
-byte rows[ROW_NUM] = { 33,27,22 };
+// Pins for buttons.
+byte cols[COLUMNS] = {23, 22, 14, 32, 15};
+byte rows[ROWS] = {33, 27, 22};
 
-char keys[ROW_NUM][COLUMN_NUM] = {
-  {'1','2','3','4','5'},
-  {'6','7','8','9','0'},
-  {'*','#','A','B','C'}
+char keys[ROWS][COLUMNS] = {
+	{'1', '2', '3', '4', '5'},
+	{'6', '7', '8', '9', '0'},
+	{'*', '#', 'A', 'B', 'C'}
 };
 
-void setupKeypad() {
-  for (byte r = 0; r < ROW_NUM; r++) {
-    pinMode(rows[r], OUTPUT);
-    digitalWrite(rows[r], HIGH);
-  }
-
-  for (byte c = 0; c < COLUMN_NUM; c++) {
-    pinMode(cols[c], INPUT_PULLUP);
-  }
+void setup_keypad() {
+	for (byte r = 0; r < ROWS; r++) {
+		pinMode(rows[r], OUTPUT);
+		digitalWrite(rows[r], HIGH);
+	}
+	for (byte c = 0; c < COLUMNS; c++) {
+		pinMode(cols[c], INPUT_PULLUP);
+	}
 }
 
-char getKey() {
-  for (byte r = 0; r < ROW_NUM; r++) {
-    digitalWrite(rows[r], LOW);
-
-    for (byte c = 0; c < COLUMN_NUM; c++) {
-      if (digitalRead(cols[c]) == LOW) {
-        delay(10);
-
-        if (digitalRead(cols[c]) == LOW) {
-          digitalWrite(rows[r], HIGH);
-          return keys[r][c];
-        }
-      }
-      //delay(5);
-    }
-
-    digitalWrite(rows[r], HIGH);
-  }
-
-  return NO_KEY;
+char get_key() {
+	for (byte r = 0; r < ROWS; r++) {
+		digitalWrite(rows[r], LOW);
+		for (byte c = 0; c < COLUMNS; c++) {
+			if (digitalRead(cols[c]) == LOW) {
+				delay(10);
+				if (digitalRead(cols[c]) == LOW) {
+					digitalWrite(rows[r], HIGH);
+					return keys[r][c];
+				}
+			}
+			//delay(5);
+		}
+		digitalWrite(rows[r], HIGH);
+	}
+	return NO_KEY;
 }
 
 AnalogAudioStream analog ;
 ESpeak espeak(analog);
 
 void setup() {
-  Serial.begin(115200);
+	Serial.begin(115200);
 	espeak.begin();
 	auto espeak_info = espeak.audioInfo();
 	auto cfg = analog.defaultConfig();
@@ -62,16 +58,16 @@ void setup() {
 	cfg.sample_rate = espeak_info.sample_rate; // 22050
 	cfg.bits_per_sample = espeak_info.bits_per_sample; // 16
 	analog.begin(cfg);
-  setupKeypad();
+	setup_keypad();
 }
 
 void loop() {
-  char key = getKey();
-
-  if (key != NO_KEY) {
-    Serial.println(key);
-  }
-  if (key == '1') {
-    espeak.say("Hello World");
-  }
+	char key = get_key();
+	if (key != NO_KEY) {
+		// Serial.println(key);
+		char to_speak[2];
+		to_speak[0] = key;
+		to_speak[1] = '\0';
+		espeak.say(to_speak);
+	}
 }
