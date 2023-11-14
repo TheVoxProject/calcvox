@@ -5,6 +5,7 @@
 #include "espeak.h"
 #include "SPI.h"
 #include <string>
+#include <vector>
 
 const byte ROWS = 3;
 const byte COLUMNS = 5;
@@ -14,9 +15,9 @@ byte cols[COLUMNS] = {23, 22, 14, 32, 15};
 byte rows[ROWS] = {33, 27, 22};
 
 char keys[ROWS][COLUMNS] = {
-	{'.', '1', '4', '7', '+'},
+	{'=', '1', '4', '7', '+'},
 	{'0', '2', '5', '8', '-'},
-	{'=', '3', '6', '9', '*'}
+	{'.', '3', '6', '9', '*'}
 };
 
 void setup_keypad() {
@@ -90,9 +91,12 @@ std::string convert_character(const char character) {
 
 AnalogAudioStream analog ;
 ESpeak espeak(analog);
+std::string current_equation;
+std::vector<std::string> history;
 
 void setup() {
 	Serial.begin(115200);
+	Serial.println("Running = test");
 	espeak.begin();
 	auto espeak_info = espeak.audioInfo();
 	auto cfg = analog.defaultConfig();
@@ -106,8 +110,13 @@ void setup() {
 void loop() {
 	char key = get_key();
 	if (key != NO_KEY) {
-		// Serial.println(key);
-		const char* to_speak = convert_character(key).c_str();
-		espeak.say(to_speak);
+		Serial.println(key);
+		if (key == '=') {
+			espeak.say(current_equation.c_str());
+		} else {
+			const char *to_speak = convert_character(key).c_str();
+			espeak.say(to_speak);
+			current_equation += key;
+		}
 	}
 }
