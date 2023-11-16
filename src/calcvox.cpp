@@ -6,6 +6,7 @@
 #include "SPI.h"
 #include <string>
 #include <vector>
+#include <map>
 
 const byte ROWS = 3;
 const byte COLUMNS = 5;
@@ -48,45 +49,30 @@ char get_key() {
 	return NO_KEY;
 }
 
-// Todo: clean this up.
 std::string convert_character(const char character) {
-	std::string final;
-	switch (character) {
-	case '0':
-	case '1':
-	case '2':
-	case '3':
-	case '4':
-	case '5':
-	case '6':
-	case '7':
-	case '8':
-	case '9':
-		final = character;
-		break;
-	case '+':
-		final = "plus";
-		break;
-	case '-':
-		final = "minus";
-		break;
-	case '*':
-		final = "times";
-		break;
-	case '/':
-		final = "divide";
-		break;
-	case '.':
-		final = "point";
-		break;
-	case '=':
-		final = "equals";
-		break;
-	default:
-		final = "";
-		break;
+	static const std::map<char, std::string> char_map = {
+		{'0', "0"},
+		{'1', "1"},
+		{'2', "2"},
+		{'3', "3"},
+		{'4', "4"},
+		{'5', "5"},
+		{'6', "6"},
+		{'7', "7"},
+		{'8', "8"},
+		{'9', "9"},
+		{'+', "plus"},
+		{'-', "minus"},
+		{'*', "times"},
+		{'/', "divide"},
+		{'.', "point"},
+		{'=', "equals"}
+	};
+	auto it = char_map.find(character);
+	if (it == char_map.end()) {
+		return "";
 	}
-	return final;
+	return it->second;
 }
 
 AnalogAudioStream analog ;
