@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "tinyexpr.h"
+#include <cstring>
 
 const byte ROWS = 3;
 const byte COLUMNS = 5;
@@ -96,9 +98,13 @@ void setup() {
 void loop() {
 	char key = get_key();
 	if (key != NO_KEY) {
-		Serial.println(key);
+		// Serial.println(key);
 		if (key == '=') {
-			espeak.say(current_equation.c_str());
+			double te_result = te_interp(current_equation.c_str(), 0);
+			std::string result_string = std::to_string(te_result);
+			char* result = new char[result_string.length() + 1];
+			std::strcpy(result, result_string.c_str());
+			espeak.say(result);
 		} else {
 			const char *to_speak = convert_character(key).c_str();
 			espeak.say(to_speak);

@@ -16,3 +16,6 @@
 [submodule "lib/Keypad"]
 	path = lib/Keypad
 	url = https://github.com/Chris--A/Keypad
+[submodule "lib/tinyexpr"]
+	path = lib/tinyexpr
+	url = https://github.com/codeplea/tinyexpr

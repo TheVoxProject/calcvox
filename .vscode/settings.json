@@ -1,5 +1,4 @@
 {
-  "editor.defaultFormatter": "lgastako.vscode-astyle",
   "astylercPath": "${workspaceFolder}/.astylerc.json",
   "[cpp]": {
     "editor.defaultFormatter": "chiehyu.vscode-astyle"
