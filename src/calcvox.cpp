@@ -9,6 +9,8 @@
 #include <map>
 #include "tinyexpr.h"
 #include <cstring>
+#include <sstream>
+#include <iomanip>
 
 const byte ROWS = 3;
 const byte COLUMNS = 5;
@@ -77,6 +79,19 @@ std::string convert_character(const char character) {
 	return it->second;
 }
 
+std::string eval(const std::string& expression, const int precision) {
+	te_variable vars[] = {};
+	int err;
+	te_expr* expr = te_compile(expression.c_str(), vars, 0, &err);
+	if (!expr) {
+		return "Error";
+	}
+	double result = te_eval(expr);
+	te_free(expr);
+	std::ostringstream result_stream;
+	result_stream << std::fixed << std::setprecision(precision) << result;
+	return result_stream.str();
+}
 AnalogAudioStream analog ;
 ESpeak espeak(analog);
 std::string current_equation;
@@ -100,10 +115,7 @@ void loop() {
 	if (key != NO_KEY) {
 		// Serial.println(key);
 		if (key == '=') {
-			double te_result = te_interp(current_equation.c_str(), 0);
-			std::string result_string = std::to_string(te_result);
-			char* result = new char[result_string.length() + 1];
-			std::strcpy(result, result_string.c_str());
+			const char* result = eval(current_equation, 2).c_str();
 			espeak.say(result);
 		} else {
 			const char *to_speak = convert_character(key).c_str();
