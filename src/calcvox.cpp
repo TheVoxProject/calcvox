@@ -17,7 +17,7 @@ const byte COLUMNS = 5;
 
 // Pins for buttons.
 byte cols[COLUMNS] = {23, 22, 14, 32, 15};
-byte rows[ROWS] = {33, 27, 22};
+byte rows[ROWS] = {33, 27, 12};
 
 char keys[ROWS][COLUMNS] = {
 	{'=', '1', '4', '7', '+'},
