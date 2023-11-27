@@ -14,58 +14,54 @@
 #define CALCVOX_PROTOTYPE
 #include "pins.h"
 
-char keys[ROWS][COLUMNS] = {
-	{'=', '1', '4', '7', '+'},
-	{'0', '2', '5', '8', '-'},
-	{'.', '3', '6', '9', '*'}
-};
+
 
 void setup_keypad() {
-	for (byte r = 0; r < ROWS; r++) {
-		pinMode(rows[r], OUTPUT);
-		digitalWrite(rows[r], HIGH);
+	for (byte r = 0; r < COLUMNS; r++) {
+		pinMode(cols[r], OUTPUT);
+		digitalWrite(cols[r], HIGH);
 	}
-	for (byte c = 0; c < COLUMNS; c++) {
-		pinMode(cols[c], INPUT_PULLUP);
+	for (byte c = 0; c < ROWS; c++) {
+		pinMode(rows[c], INPUT_PULLUP);
 	}
 }
 
-char get_key() {
-	for (byte r = 0; r < ROWS; r++) {
-		digitalWrite(rows[r], LOW);
-		for (byte c = 0; c < COLUMNS; c++) {
-			if (digitalRead(cols[c]) == LOW) {
+std::string get_key() {
+	for (byte r = 0; r < COLUMNS; r++) {
+		digitalWrite(cols[r], LOW);
+		for (byte c = 0; c < ROWS; c++) {
+			if (digitalRead(rows[c]) == LOW) {
 				delay(10);
-				if (digitalRead(cols[c]) == LOW) {
-					digitalWrite(rows[r], HIGH);
+				if (digitalRead(rows[c]) == LOW) {
+					digitalWrite(cols[r], HIGH);
 					return keys[r][c];
 				}
 			}
 			//delay(5);
 		}
-		digitalWrite(rows[r], HIGH);
+		digitalWrite(cols[r], HIGH);
 	}
-	return NO_KEY;
+	return "";
 }
 
-std::string convert_character(const char character) {
-	static const std::map<char, std::string> char_map = {
-		{'0', "0"},
-		{'1', "1"},
-		{'2', "2"},
-		{'3', "3"},
-		{'4', "4"},
-		{'5', "5"},
-		{'6', "6"},
-		{'7', "7"},
-		{'8', "8"},
-		{'9', "9"},
-		{'+', "plus"},
-		{'-', "minus"},
-		{'*', "times"},
-		{'/', "divide"},
-		{'.', "point"},
-		{'=', "equals"}
+std::string convert_character(const std::string character) {
+	static const std::map<std::string, std::string> char_map = {
+		{"0", "0"},
+		{"1", "1"},
+		{"2", "2"},
+		{"3", "3"},
+		{"4", "4"},
+		{"5", "5"},
+		{"6", "6"},
+		{"7", "7"},
+		{"8", "8"},
+		{"9", "9"},
+		{"+", "plus"},
+		{"-", "minus"},
+		{"*", "times"},
+		{"/", "divide"},
+		{".", "point"},
+		{"=", "equals"}
 	};
 	auto it = char_map.find(character);
 	if (it == char_map.end()) {
@@ -107,10 +103,10 @@ void setup() {
 }
 
 void loop() {
-	char key = get_key();
-	if (key != NO_KEY) {
+	std::string key = get_key();
+	if (key != "") {
 		// Serial.println(key);
-		if (key == '=') {
+		if (key == "=") {
 			const char* result = eval(current_equation, 2).c_str();
 			espeak.say(result);
 		} else {
