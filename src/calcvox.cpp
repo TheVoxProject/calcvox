@@ -11,13 +11,8 @@
 #include <cstring>
 #include <sstream>
 #include <iomanip>
-
-const byte ROWS = 3;
-const byte COLUMNS = 5;
-
-// Pins for buttons.
-byte cols[COLUMNS] = {23, 22, 14, 32, 15};
-byte rows[ROWS] = {33, 27, 12};
+#define CALCVOX_PROTOTYPE
+#include "pins.h"
 
 char keys[ROWS][COLUMNS] = {
 	{'=', '1', '4', '7', '+'},
@@ -92,6 +87,7 @@ std::string eval(const std::string& expression, const int precision) {
 	result_stream << std::fixed << std::setprecision(precision) << result;
 	return result_stream.str();
 }
+
 AnalogAudioStream analog ;
 ESpeak espeak(analog);
 std::string current_equation;
