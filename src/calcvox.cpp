@@ -14,8 +14,6 @@
 #define CALCVOX_PROTOTYPE
 #include "pins.h"
 
-
-
 void setup_keypad() {
 	for (byte r = 0; r < COLUMNS; r++) {
 		pinMode(cols[r], OUTPUT);

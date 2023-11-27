@@ -6,11 +6,11 @@ const byte COLUMNS = 5;
 byte cols[COLUMNS] = {23, 22, 14, 32, 15};
 byte rows[ROWS] = {33, 27, 12};
 std::string keys[COLUMNS][ROWS] = {
-    {"*", "-", "+"},
-	{"1", "2", "3"},
+    {".", "0", "="},
+    {"1", "2", "3"},
     {"4", "5", "6"},
     {"7", "8", "9"},
-    {"0", ".", "="}
+    {"+", "-", "*"}
 };
 #elif defined(CALCVOX_H1)
 const byte ROWS = 8;
