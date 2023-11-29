@@ -107,6 +107,9 @@ void loop() {
 		if (key == "=") {
 			const char* result = eval(current_equation, 2).c_str();
 			espeak.say(result);
+		} else if (key == "all_clear") {
+			current_equation = "";
+			espeak.say("All clear");
 		} else {
 			const char *to_speak = convert_character(key).c_str();
 			espeak.say(to_speak);
