@@ -12,6 +12,7 @@ std::string keys[COLUMNS][ROWS] = {
     {"7", "8", "9"},
     {"+", "-", "all_clear"}
 };
+
 #elif defined(CALCVOX_H1)
 const byte ROWS = 8;
 const byte COLUMNS = 8;
@@ -27,8 +28,6 @@ std::string keys[COLUMNS][ROWS] = {
     {"x", "1", "2", "3", "+", "stat", "del", "p0"},
     {"on", "0", ".", "(-)", "=", "2nd", "apps", "alpha"}
 };
-}
-
 
 #elif defined(CALCVOX_H2)
 
