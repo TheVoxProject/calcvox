@@ -2,5 +2,8 @@
   "astylercPath": "${workspaceFolder}/.astylerc.json",
   "[cpp]": {
     "editor.defaultFormatter": "chiehyu.vscode-astyle"
-  }
+  },
+  "cSpell.words": [
+    "CALCVOX"
+  ]
 }
