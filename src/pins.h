@@ -19,7 +19,7 @@ const byte COLUMNS = 8;
 byte cols[COLUMNS] = {3, 19, 18, 5, 4, 33, 15, 32};
 byte rows[ROWS] = {34, 39, 36, 14, 22, 23, 1, 21};
 std::string keys[COLUMNS][ROWS] = {
-    {"mode", "speech options", "p1", "p2", "p3", "p4", "p5", "p6"},
+    {"quit", "options", "p1", "p2", "p3", "p4", "p5", "p6"},
     {"log base", "sqrt", "stat/plot", "y=", "win/zoom", "calc", "graph/trace", "p7"},
     {"log", "^", "sin", "cos", "tan", "repeat", "read current", "dpad right"},
     {"ln", "x^2", "(", ")", "/", "dpad left", "dpad up", "p8"},
