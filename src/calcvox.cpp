@@ -103,13 +103,21 @@ void setup() {
 void loop() {
 	std::string key = get_key();
 	if (key != "") {
-		// Serial.println(key);
 		if (key == "=") {
 			const char* result = eval(current_equation, 2).c_str();
 			espeak.say(result);
 		} else if (key == "all_clear") {
 			current_equation = "";
 			espeak.say("All clear");
+		} else if (key == "delete") {
+			if (!current_equation.empty()) {
+				char last_char[2] = {current_equation.back(), '\0'};
+				const char* p_last_char = last_char;
+				current_equation.pop_back();
+				espeak.say(p_last_char);
+			} else {
+				espeak.say("Empty");
+			}
 		} else {
 			const char *to_speak = convert_character(key).c_str();
 			espeak.say(to_speak);
