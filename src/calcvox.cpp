@@ -107,14 +107,17 @@ void loop() {
 			const char* result = eval(current_equation, 2).c_str();
 			espeak.say(result);
 		} else if (key == "all_clear") {
-			current_equation = "";
-			espeak.say("All clear");
+			if (!current_equation.empty()) {
+				current_equation = "";
+				espeak.say("All clear");
+			} else {
+				espeak.say("Empty");
+			}
 		} else if (key == "delete") {
 			if (!current_equation.empty()) {
-				char last_char[2] = {current_equation.back(), '\0'};
-				const char* p_last_char = last_char;
+				std::string last_char = convert_character(current_equation.substr(current_equation.length() - 1));
 				current_equation.pop_back();
-				espeak.say(p_last_char);
+				espeak.say(last_char.c_str());
 			} else {
 				espeak.say("Empty");
 			}
