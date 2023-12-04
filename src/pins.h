@@ -28,6 +28,11 @@ std::string keys[COLUMNS][ROWS] = {
     {"x", "1", "2", "3", "+", "stat", "del", "p0"},
     {"on", "0", ".", "(-)", "=", "2nd", "apps", "alpha"}
 };
+#define I2SOUT
+int i2s_ws = 25;
+int i2s_din = 26;  
+int i2s_bclk = 2;
+
 
 #elif defined(CALCVOX_H2)
 
