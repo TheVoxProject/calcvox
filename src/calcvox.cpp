@@ -32,6 +32,7 @@ std::string get_key() {
 				delay(10);
 				if (digitalRead(rows[c]) == LOW) {
 					digitalWrite(cols[r], HIGH);
+					Serial.println(keys[r][c].c_str());
 					return keys[r][c];
 				}
 			}
@@ -111,6 +112,7 @@ void setup() {
 
 void loop() {
 	std::string key = get_key();
+	Serial.println("loop :)");
 	if (key != "") {
 		if (key == "=") {
 			const char* result = eval(current_equation, 2).c_str();
