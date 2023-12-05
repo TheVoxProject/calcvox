@@ -11,7 +11,7 @@
 #include <cstring>
 #include <sstream>
 #include <iomanip>
-#define CALCVOX_PROTOTYPE
+#define CALCVOX_H1
 #include "pins.h"
 
 void setup_keypad() {
@@ -82,21 +82,30 @@ std::string eval(const std::string& expression, const int precision) {
 	return result_stream.str();
 }
 
-AnalogAudioStream analog ;
-ESpeak espeak(analog);
+#if defined(USE_I2S)
+I2SStream audio_output;
+#elif defined(USE_ANALOG)
+AnalogAudioStream audio_output;
+#endif
+ESpeak espeak(audio_output);
 std::string current_equation;
 std::vector<std::string> history;
 
 void setup() {
 	Serial.begin(115200);
-	Serial.println("Running = test");
 	espeak.begin();
 	auto espeak_info = espeak.audioInfo();
-	auto cfg = analog.defaultConfig();
+	auto cfg = audio_output.defaultConfig();
 	cfg.channels = espeak_info.channels; // 1
 	cfg.sample_rate = espeak_info.sample_rate; // 22050
 	cfg.bits_per_sample = espeak_info.bits_per_sample; // 16
-	analog.begin(cfg);
+	#if defined(USE_I2s)
+		cfg.i2s_format = I2S_LSB_FORMAT;
+		cfg.pin_ws = i2s_ws;
+		cfg.pin_bck = i2s_bclk;
+		cfg.pin_data = i2s_din;
+	#endif
+	audio_output.begin(cfg);
 	setup_keypad();
 }
 

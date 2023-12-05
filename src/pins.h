@@ -1,6 +1,7 @@
 #pragma once
 
 #if defined(CALCVOX_PROTOTYPE)
+#define USE_ANALOG
 const byte ROWS = 3;
 const byte COLUMNS = 5;
 byte cols[COLUMNS] = {23, 22, 14, 32, 15};
@@ -14,6 +15,7 @@ std::string keys[COLUMNS][ROWS] = {
 };
 
 #elif defined(CALCVOX_H1)
+#define USE_I2S
 const byte ROWS = 8;
 const byte COLUMNS = 8;
 byte cols[COLUMNS] = {3, 19, 18, 5, 4, 33, 15, 32};
@@ -28,7 +30,6 @@ std::string keys[COLUMNS][ROWS] = {
     {"x", "1", "2", "3", "+", "stat", "del", "p0"},
     {"on", "0", ".", "(-)", "=", "2nd", "apps", "alpha"}
 };
-#define I2SOUT
 int i2s_ws = 25;
 int i2s_din = 26;  
 int i2s_bclk = 2;
