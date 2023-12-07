@@ -1,5 +1,7 @@
-file://./lib/SdFat
-file://./lib/arduino-audio-tools/
-file://./lib/Keypad
-file://./lib/arduino-libhelix
-file://./lib/tinyexpr
+https://github.com/pschatzmann/arduino-audio-tools.git
+https://github.com/pschatzmann/arduino-libhelix.git
+https://github.com/pschatzmann/arduino-posix-fs.git
+https://github.com/codeplea/tinyexpr.git
+https://github.com/pschatzmann/arduino-espeak-ng.git
+https://github.com/Chris--A/Keypad.git
+https://github.com/greiman/SdFat.git
