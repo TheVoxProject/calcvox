@@ -1,8 +1,7 @@
 #include <Arduino.h>
 #include <Keypad.h>
 #include "AudioTools.h"
-#include "filesystems.h"
-#include "espeak.h"
+#include "flite_arduino.h"
 #include "SPI.h"
 #include <string>
 #include <vector>
@@ -11,7 +10,7 @@
 #include <cstring>
 #include <sstream>
 #include <iomanip>
-#define CALCVOX_H1
+#define CALCVOX_PROTOTYPE
 #include "pins.h"
 
 void setup_keypad() {
@@ -88,18 +87,16 @@ I2SStream audio_output;
 #elif defined(USE_ANALOG)
 AnalogAudioStream audio_output;
 #endif
-ESpeak espeak(audio_output);
+Flite flite(audio_output);
 std::string current_equation;
 std::vector<std::string> history;
 
 void setup() {
 	Serial.begin(115200);
-	espeak.begin();
-	auto espeak_info = espeak.audioInfo();
 	auto cfg = audio_output.defaultConfig();
-	cfg.channels = espeak_info.channels; // 1
-	cfg.sample_rate = espeak_info.sample_rate; // 22050
-	cfg.bits_per_sample = espeak_info.bits_per_sample; // 16
+	cfg.sample_rate = 8000;
+	cfg.channels = 1;
+	cfg.bits_per_sample = 16;
 	#if defined(USE_I2s)
 		cfg.i2s_format = I2S_LSB_FORMAT;
 		cfg.pin_ws = i2s_ws;
@@ -116,25 +113,25 @@ void loop() {
 	if (key != "") {
 		if (key == "=") {
 			const char* result = eval(current_equation, 2).c_str();
-			espeak.say(result);
+			flite.say(result);
 		} else if (key == "all_clear") {
 			if (!current_equation.empty()) {
 				current_equation = "";
-				espeak.say("All clear");
+				flite.say("All clear");
 			} else {
-				espeak.say("Empty");
+				flite.say("Empty");
 			}
 		} else if (key == "delete") {
 			if (!current_equation.empty()) {
 				std::string last_char = convert_character(current_equation.substr(current_equation.length() - 1));
 				current_equation.pop_back();
-				espeak.say(last_char.c_str());
+				flite.say(last_char.c_str());
 			} else {
-				espeak.say("Empty");
+				flite.say("Empty");
 			}
 		} else {
 			const char *to_speak = convert_character(key).c_str();
-			espeak.say(to_speak);
+			flite.say(to_speak);
 			current_equation += key;
 		}
 	}

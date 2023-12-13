@@ -5,5 +5,10 @@
   },
   "cSpell.words": [
     "CALCVOX"
-  ]
+  ],
+  "files.associations": {
+    "cstring": "cpp",
+    "string": "cpp",
+    "sstream": "cpp"
+  }
 }
