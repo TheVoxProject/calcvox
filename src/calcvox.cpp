@@ -97,7 +97,7 @@ void setup() {
 	cfg.sample_rate = 8000;
 	cfg.channels = 1;
 	cfg.bits_per_sample = 16;
-	#if defined(USE_I2s)
+	#if defined(USE_I2S)
 		cfg.i2s_format = I2S_LSB_FORMAT;
 		cfg.pin_ws = i2s_ws;
 		cfg.pin_bck = i2s_bclk;
@@ -109,7 +109,6 @@ void setup() {
 
 void loop() {
 	std::string key = get_key();
-	Serial.println("loop :)");
 	if (key != "") {
 		if (key == "=") {
 			const char* result = eval(current_equation, 2).c_str();
