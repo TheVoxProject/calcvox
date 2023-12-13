@@ -82,9 +82,9 @@ std::string eval(const std::string& expression, const int precision) {
 	return result_stream.str();
 }
 
-#if defined(USE_I2S)
+#if defined(USE_I2S_OUTPUT)
 I2SStream audio_output;
-#elif defined(USE_ANALOG)
+#elif defined(USE_ANALOG_OUTPUT)
 AnalogAudioStream audio_output;
 #endif
 Flite flite(audio_output);
@@ -97,7 +97,7 @@ void setup() {
 	cfg.sample_rate = 8000;
 	cfg.channels = 1;
 	cfg.bits_per_sample = 16;
-	#if defined(USE_I2S)
+	#if defined(USE_I2S_OUTPUT)
 		cfg.i2s_format = I2S_LSB_FORMAT;
 		cfg.pin_ws = i2s_ws;
 		cfg.pin_bck = i2s_bclk;
@@ -110,6 +110,7 @@ void setup() {
 void loop() {
 	std::string key = get_key();
 	if (key != "") {
+		Serial.println(key.c_str());
 		if (key == "=") {
 			const char* result = eval(current_equation, 2).c_str();
 			flite.say(result);
