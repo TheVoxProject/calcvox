@@ -1,15 +1,14 @@
 #include <Arduino.h>
 #include <Keypad.h>
-#include "AudioTools.h"
-#include "flite_arduino.h"
-#include "SPI.h"
 #include <string>
 #include <vector>
 #include <map>
-#include "tinyexpr.h"
+//#include "tinyexpr.h"
 #include <cstring>
 #include <sstream>
 #include <iomanip>
+#include "Talkie.h"
+#include "Vocab_US_Large.h"
 #define CALCVOX_PROTOTYPE
 #include "pins.h"
 
@@ -69,7 +68,7 @@ std::string convert_character(const std::string character) {
 }
 
 std::string eval(const std::string& expression, const int precision) {
-	te_variable vars[] = {};
+	/* te_variable vars[] = {};
 	int err;
 	te_expr* expr = te_compile(expression.c_str(), vars, 0, &err);
 	if (!expr) {
@@ -79,36 +78,33 @@ std::string eval(const std::string& expression, const int precision) {
 	te_free(expr);
 	std::ostringstream result_stream;
 	result_stream << std::fixed << std::setprecision(precision) << result;
-	return result_stream.str();
+	return result_stream.str(); */
+	return "12";
 }
 
-#if defined(USE_I2S_OUTPUT)
-I2SStream audio_output;
-#elif defined(USE_ANALOG_OUTPUT)
-AnalogAudioStream audio_output;
-#endif
-Flite flite(audio_output);
 std::string current_equation;
 std::vector<std::string> history;
+Talkie voice;
 
 void setup() {
 	Serial.begin(115200);
-	auto cfg = audio_output.defaultConfig();
-	cfg.sample_rate = 8000;
-	cfg.channels = 1;
-	cfg.bits_per_sample = 16;
-	#if defined(USE_I2S_OUTPUT)
-		cfg.i2s_format = I2S_LSB_FORMAT;
-		cfg.pin_ws = i2s_ws;
-		cfg.pin_bck = i2s_bclk;
-		cfg.pin_data = i2s_din;
+	#if defined(TEENSYDUINO)
+		pinMode(5, OUTPUT);
+		digitalWrite(5, HIGH); //Enable Amplified PROP shield
 	#endif
-	audio_output.begin(cfg);
-	setup_keypad();
+	// setup_keypad();
 }
 
 void loop() {
-	std::string key = get_key();
+	voice.say(sp2_DANGER);
+	voice.say(sp2_DANGER);
+	voice.say(sp2_RED);
+	voice.say(sp2_ALERT);
+	voice.say(sp2_MOTOR);
+	voice.say(sp2_IS);
+	voice.say(sp2_ON);
+	voice.say(sp2_FIRE);
+	/* std::string key = get_key();
 	if (key != "") {
 		Serial.println(key.c_str());
 		if (key == "=") {
@@ -134,5 +130,5 @@ void loop() {
 			flite.say(to_speak);
 			current_equation += key;
 		}
-	}
+	} */
 }
