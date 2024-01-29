@@ -34,5 +34,23 @@ int i2s_bclk = 2;
 
 
 #elif defined(CALCVOX_H2)
+const byte ROWS = 6;
+const byte COLUMNS = 8;
+byte rows[ROWS] = {6,5,4,3,2,1};
+byte cols[COLUMNS] = {25,26,27,28,29,30,31,32};
+char keys[ROWS][COLUMNS] = {
+    {'1','2','3','+','4','5','6','-'},
+    {'7','8','9','*','0','.','=','/'},
+    {'7','8','9','/','e','f','g','h'},
+    {'4','5','6','*','m','n','o','p'},
+    {'1','2','3','-','u','v','w','x'},
+    {'0','.','=','+','C','D','E','F'}
+};
+
+Keypad keypad = Keypad( makeKeymap(keys), rows, cols, ROWS, COLUMNS );
+
+#define TalkSerial Serial4 //rx 16, tx 17
+
+
 
 #endif

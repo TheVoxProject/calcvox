@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Keypad.h>
+//#include "HardwareSerial.h" // probably dont need
 #include <string>
 #include <vector>
 #include <map>
@@ -7,38 +8,23 @@
 #include <cstring>
 #include <sstream>
 #include <iomanip>
-#include "Talkie.h"
-#include "Vocab_US_Large.h"
-#define CALCVOX_PROTOTYPE
+#define CALCVOX_H2
 #include "pins.h"
 
 void setup_keypad() {
-	for (byte r = 0; r < COLUMNS; r++) {
-		pinMode(cols[r], OUTPUT);
-		digitalWrite(cols[r], HIGH);
-	}
-	for (byte c = 0; c < ROWS; c++) {
-		pinMode(rows[c], INPUT_PULLUP);
-	}
+	// Not used on H2
+	return;
 }
 
 std::string get_key() {
-	for (byte r = 0; r < COLUMNS; r++) {
-		digitalWrite(cols[r], LOW);
-		for (byte c = 0; c < ROWS; c++) {
-			if (digitalRead(rows[c]) == LOW) {
-				delay(10);
-				if (digitalRead(rows[c]) == LOW) {
-					digitalWrite(cols[r], HIGH);
-					Serial.println(keys[r][c].c_str());
-					return keys[r][c];
-				}
-			}
-			//delay(5);
-		}
-		digitalWrite(cols[r], HIGH);
+	// TODO: Will eventually need to map to full strings EG sin ans etc
+	char key = keypad.getKey();
+	//Serial.println(key);
+	if (key != NO_KEY) {
+		return std::string(1, key);
 	}
 	return "";
+
 }
 
 std::string convert_character(const std::string character) {
@@ -84,51 +70,43 @@ std::string eval(const std::string& expression, const int precision) {
 
 std::string current_equation;
 std::vector<std::string> history;
-Talkie voice;
 
 void setup() {
 	Serial.begin(115200);
-	#if defined(TEENSYDUINO)
-		pinMode(5, OUTPUT);
-		digitalWrite(5, HIGH); //Enable Amplified PROP shield
-	#endif
 	// setup_keypad();
 }
 
 void loop() {
-	voice.say(sp2_DANGER);
-	voice.say(sp2_DANGER);
-	voice.say(sp2_RED);
-	voice.say(sp2_ALERT);
-	voice.say(sp2_MOTOR);
-	voice.say(sp2_IS);
-	voice.say(sp2_ON);
-	voice.say(sp2_FIRE);
-	/* std::string key = get_key();
+	//
+	// Code will be able to be updated to use TalkSerial for the serial connection to the ESP.
+	// For now it is just set to usb serial as I work on the prototype more and test it
+	//
+	//Serial.println("Loop");
+	std::string key = get_key();
 	if (key != "") {
-		Serial.println(key.c_str());
+		//Serial.println(key.c_str());
 		if (key == "=") {
-			const char* result = eval(current_equation, 2).c_str();
-			flite.say(result);
+			std::string result = eval(current_equation, 2);
+			Serial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
 		} else if (key == "all_clear") {
 			if (!current_equation.empty()) {
 				current_equation = "";
-				flite.say("All clear");
+				Serial.println("All clear");
 			} else {
-				flite.say("Empty");
+				Serial.println("Empty");
 			}
 		} else if (key == "delete") {
 			if (!current_equation.empty()) {
 				std::string last_char = convert_character(current_equation.substr(current_equation.length() - 1));
 				current_equation.pop_back();
-				flite.say(last_char.c_str());
+				Serial.println(last_char.c_str());
 			} else {
-				flite.say("Empty");
+				Serial.println("Empty");
 			}
 		} else {
 			const char *to_speak = convert_character(key).c_str();
-			flite.say(to_speak);
+			Serial.println(to_speak);
 			current_equation += key;
 		}
-	} */
+	} 
 }
