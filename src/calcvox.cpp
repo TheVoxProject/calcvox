@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Keypad.h>
+#include "Encoder.h"
 //#include "HardwareSerial.h" // probably dont need
 #include <string>
 #include <vector>
@@ -15,8 +16,27 @@ void setup_keypad() {
 	// Not used on H2
 	return;
 }
+int position = 0;
+int prevPosition = 0;
+#if defined(UseRotary)
+Encoder r = Encoder(RotaryA, RotaryB);
+#endif
 
 std::string get_key() {
+	#if defined(UseRotary)
+	prevPosition = position;
+	position = r.read();
+	// is pretty broken rn, TODO: fix
+	if (position < prevPosition) {
+		return "counterclockwise";
+	} else if (position > prevPosition) {
+		return "clockwise";
+	}
+	//need to make sure it is only on keydown
+	if (digitalRead(RotaryButton) == LOW) {
+		return "all_clear";
+	}
+	#endif
 	// TODO: Will eventually need to map to full strings EG sin ans etc
 	char key = keypad.getKey();
 	//Serial.println(key);
@@ -44,7 +64,11 @@ std::string convert_character(const std::string character) {
 		{"*", "times"},
 		{"/", "divide"},
 		{".", "point"},
-		{"=", "equals"}
+		{"=", "equals"},
+		{"clockwise", "clockwise"},
+		{"counterclockwise", "counterclockwise"},
+		{"all_clear", "all clear"},
+		{"delete", "delete"}
 	};
 	auto it = char_map.find(character);
 	if (it == char_map.end()) {
@@ -72,8 +96,12 @@ std::string current_equation;
 std::vector<std::string> history;
 
 void setup() {
+	#if defined(UseRotary)
+	pinMode(RotaryButton, INPUT);
+	prevPosition = r.read();
+	#endif
 	Serial.begin(115200);
-	// setup_keypad();
+
 }
 
 void loop() {
@@ -84,7 +112,7 @@ void loop() {
 	//Serial.println("Loop");
 	std::string key = get_key();
 	if (key != "") {
-		//Serial.println(key.c_str());
+		Serial.println(key.c_str());
 		if (key == "=") {
 			std::string result = eval(current_equation, 2);
 			Serial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic

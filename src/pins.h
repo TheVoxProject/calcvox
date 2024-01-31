@@ -51,6 +51,11 @@ Keypad keypad = Keypad( makeKeymap(keys), rows, cols, ROWS, COLUMNS );
 
 #define TalkSerial Serial4 //rx 16, tx 17
 
+#define UseRotary
+#define RotaryA 20
+#define RotaryB 21
+#define RotaryButton 22
+
 
 
 #endif
