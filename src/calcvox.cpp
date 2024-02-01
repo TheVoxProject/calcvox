@@ -101,6 +101,7 @@ void setup() {
 	prevPosition = r.read();
 	#endif
 	Serial.begin(115200);
+	TalkSerial.begin(115200);
 
 }
 
@@ -115,25 +116,25 @@ void loop() {
 		Serial.println(key.c_str());
 		if (key == "=") {
 			std::string result = eval(current_equation, 2);
-			Serial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
+			TalkSerial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
 		} else if (key == "all_clear") {
 			if (!current_equation.empty()) {
 				current_equation = "";
-				Serial.println("All clear");
+				TalkSerial.println("All clear");
 			} else {
-				Serial.println("Empty");
+				TalkSerial.println("Empty");
 			}
 		} else if (key == "delete") {
 			if (!current_equation.empty()) {
 				std::string last_char = convert_character(current_equation.substr(current_equation.length() - 1));
 				current_equation.pop_back();
-				Serial.println(last_char.c_str());
+				TalkSerial.println(last_char.c_str());
 			} else {
-				Serial.println("Empty");
+				TalkSerial.println("Empty");
 			}
 		} else {
 			const char *to_speak = convert_character(key).c_str();
-			Serial.println(to_speak);
+			TalkSerial.println(to_speak);
 			current_equation += key;
 		}
 	} 
