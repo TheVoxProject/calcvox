@@ -20,21 +20,17 @@ int position = 0;
 int prevPosition = 0;
 #if defined(UseRotary)
 Encoder r = Encoder(RotaryA, RotaryB);
+bool buttonState = false;
 #endif
 
 std::string get_key() {
 	#if defined(UseRotary)
-	prevPosition = position;
-	position = r.read();
-	// is pretty broken rn, TODO: fix
-	if (position < prevPosition) {
-		return "counterclockwise";
-	} else if (position > prevPosition) {
-		return "clockwise";
-	}
 	//need to make sure it is only on keydown
-	if (digitalRead(RotaryButton) == LOW) {
+	if (digitalRead(RotaryButton) == LOW && buttonState == false) {
+		buttonState = true;
 		return "all_clear";
+	} else if (digitalRead(RotaryButton) == HIGH && buttonState == true) {
+		buttonState = false;
 	}
 	#endif
 	// TODO: Will eventually need to map to full strings EG sin ans etc
@@ -111,6 +107,17 @@ void loop() {
 	// For now it is just set to usb serial as I work on the prototype more and test it
 	//
 	//Serial.println("Loop");
+	#if defined(UseRotary)
+	prevPosition = position;
+	position = r.read();
+	int delta = position - prevPosition;
+	// is pretty broken rn, TODO: fix
+	if (delta != 0) {
+		TalkSerial.print("#!Volume ");
+		TalkSerial.println(delta);
+	}
+	//need to make sure it is only on keydown
+	#endif
 	std::string key = get_key();
 	if (key != "") {
 		Serial.println(key.c_str());
