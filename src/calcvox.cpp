@@ -5,7 +5,13 @@
 #include <string>
 #include <vector>
 #include <map>
-//#include "tinyexpr.h"
+extern "C" {
+	// define _times to return 0
+	int _times(struct tms* buf) {
+		return 0;
+	}
+}
+#include "tinyexpr.h"
 #include <cstring>
 #include <sstream>
 #include <iomanip>
