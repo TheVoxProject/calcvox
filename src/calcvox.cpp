@@ -8,6 +8,7 @@
 #include <cstring>
 #include <sstream>
 #include <iomanip>
+#include "evox.h"
 #define CALCVOX_H2
 #include "pins.h"
 #include <Metro.h>
@@ -129,7 +130,7 @@ void loop() {
 	if (key != "") {
 		Serial.println(key.c_str());
 		if (key == "=") {
-			std::string result = eval(current_equation, 2);
+			std::string result = std::to_string(evox(current_equation));
 			TalkSerial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
 		} else if (key == "all_clear") {
 			if (!current_equation.empty()) {
