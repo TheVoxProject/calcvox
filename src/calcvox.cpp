@@ -132,6 +132,7 @@ void loop() {
 		if (key == "=") {
 			std::string result = std::to_string(evox(current_equation));
 			TalkSerial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
+			current_equation = "";
 		} else if (key == "all_clear") {
 			if (!current_equation.empty()) {
 				current_equation = "";
