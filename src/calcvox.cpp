@@ -5,18 +5,15 @@
 #include <string>
 #include <vector>
 #include <map>
-extern "C" {
-	// define _times to return 0
-	int _times(struct tms* buf) {
-		return 0;
-	}
-}
-#include "tinyexpr.h"
 #include <cstring>
 #include <sstream>
 #include <iomanip>
 #define CALCVOX_H2
 #include "pins.h"
+#include <Metro.h>
+
+Metro rotaryTimer = Metro(100);
+Metro buttonTimer = Metro(25);
 
 void setup_keypad() {
 	// Not used on H2
@@ -32,11 +29,13 @@ bool buttonState = false;
 std::string get_key() {
 	#if defined(UseRotary)
 	//need to make sure it is only on keydown
-	if (digitalRead(RotaryButton) == LOW && buttonState == false) {
-		buttonState = true;
-		return "all_clear";
-	} else if (digitalRead(RotaryButton) == HIGH && buttonState == true) {
-		buttonState = false;
+	if (buttonTimer.check()) {
+		if (digitalRead(RotaryButton) == LOW && buttonState == false) {
+			buttonState = true;
+			return "all_clear";
+		} else if (digitalRead(RotaryButton) == HIGH && buttonState == true) {
+			buttonState = false;
+		}
 	}
 	#endif
 	// TODO: Will eventually need to map to full strings EG sin ans etc
@@ -114,13 +113,15 @@ void loop() {
 	//
 	//Serial.println("Loop");
 	#if defined(UseRotary)
-	prevPosition = position;
-	position = r.read();
-	int delta = position - prevPosition;
-	// is pretty broken rn, TODO: fix
-	if (delta != 0) {
-		TalkSerial.print("#!Volume ");
-		TalkSerial.println(delta);
+	if (rotaryTimer.check()) {
+		prevPosition = position;
+		position = r.read();
+		int delta = position - prevPosition;
+		// is pretty broken rn, TODO: fix
+		if (delta != 0) {
+			TalkSerial.print("#!Volume ");
+			TalkSerial.println(delta);
+		}
 	}
 	//need to make sure it is only on keydown
 	#endif
