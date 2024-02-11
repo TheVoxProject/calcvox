@@ -29,7 +29,6 @@ bool buttonState = false;
 
 std::string get_key() {
 	#if defined(UseRotary)
-	//need to make sure it is only on keydown
 	if (buttonTimer.check()) {
 		if (digitalRead(RotaryButton) == LOW && buttonState == false) {
 			buttonState = true;
@@ -39,10 +38,34 @@ std::string get_key() {
 		}
 	}
 	#endif
-	// TODO: Will eventually need to map to full strings EG sin ans etc
 	char key = keypad.getKey();
+	// Wanted to test a few things, this may not be an ideal implimentation
+	static const std::map<char, std::string> special_keys = {
+		{'S', "sin("},
+		{'C', "cos("},
+		{'T', "tan("},
+		{'O', "on"},
+		{'l', "ln("},
+		{'o', "log("},
+		{'r', "root("},
+		{'s', "^2"},
+		{'e', "e"},
+		{'p', "pi"},
+		{'U', "up"},
+		{'D', "down"},
+		{'R', "right"},
+		{'L', "left"},
+		{'s', "select"},
+		{'a', "all_clear"},
+		{'d', "delete"},
+		{'A', "repeat"}
+	};
 	//Serial.println(key);
 	if (key != NO_KEY) {
+		auto it = special_keys.find(key);
+		if (it != special_keys.end()) {
+			return it->second;
+		}
 		return std::string(1, key);
 	}
 	return "";
@@ -65,6 +88,10 @@ std::string convert_character(const std::string character) {
 		{"-", "minus"},
 		{"*", "times"},
 		{"/", "divide"},
+		{"^", "to the power of"},
+		{"^2", "squared"},
+		{"(", "open parenthesis"},
+		{")", "close parenthesis"},
 		{".", "point"},
 		{"=", "equals"},
 		{"clockwise", "clockwise"},
@@ -108,29 +135,24 @@ void setup() {
 }
 
 void loop() {
-	//
-	// Code will be able to be updated to use TalkSerial for the serial connection to the ESP.
-	// For now it is just set to usb serial as I work on the prototype more and test it
-	//
 	//Serial.println("Loop");
 	#if defined(UseRotary)
 	if (rotaryTimer.check()) {
 		prevPosition = position;
 		position = r.read();
 		int delta = position - prevPosition;
-		// is pretty broken rn, TODO: fix
 		if (delta != 0) {
 			TalkSerial.print("#!Volume ");
 			TalkSerial.println(delta);
 		}
 	}
-	//need to make sure it is only on keydown
 	#endif
 	std::string key = get_key();
 	if (key != "") {
 		Serial.println(key.c_str());
 		if (key == "=") {
 			std::string result = std::to_string(evox(current_equation));
+			Serial.println(result.c_str());
 			TalkSerial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
 			current_equation = "";
 		} else if (key == "all_clear") {
@@ -148,6 +170,8 @@ void loop() {
 			} else {
 				TalkSerial.println("Empty");
 			}
+		} else if (key == "repeat") {
+			TalkSerial.println(current_equation.c_str()); // temp for testing layout likely bad. says "5 to 1" not "5 minus 1"
 		} else {
 			const char *to_speak = convert_character(key).c_str();
 			TalkSerial.println(to_speak);
