@@ -142,7 +142,7 @@ void loop() {
 		position = r.read();
 		int delta = position - prevPosition;
 		if (delta != 0) {
-			TalkSerial.print("#!Volume ");
+			TalkSerial.print("#!V ");
 			TalkSerial.println(delta);
 		}
 	}
