@@ -102,23 +102,8 @@ std::string convert_character(const std::string character) {
     return it->second;
 }
 
-std::string eval(const std::string& expression, const int precision) {
-    /* te_variable vars[] = {};
-    int err;
-    te_expr* expr = te_compile(expression.c_str(), vars, 0, &err);
-    if (!expr) {
-    	return "Error";
-    }
-    double result = te_eval(expr);
-    te_free(expr);
-    std::ostringstream result_stream;
-    result_stream << std::fixed << std::setprecision(precision) << result;
-    return result_stream.str(); */
-    return "12";
-}
-
 std::string current_equation;
-std::vector<std::string> history;
+history hist;
 
 void setup() {
 #if defined(UseRotary)
@@ -130,7 +115,6 @@ void setup() {
 }
 
 void loop() {
-    //Serial.println("Loop");
 #if defined(UseRotary)
     if (rotaryTimer.check()) {
         prevPosition = position;
@@ -168,6 +152,10 @@ void loop() {
     else if (key_pressed("repeat")) {
         TalkSerial.println(current_equation.c_str()); // temp for testing layout likely bad. says "5 to 1" not "5 minus 1"
     }
+    else if (key_pressed("U"))
+        hist.scroll_up();
+    else if (key_pressed("D"))
+        hist.scroll_down();
     else {
         std::string to_speak = convert_character(get_key());
         TalkSerial.println(to_speak.c_str());

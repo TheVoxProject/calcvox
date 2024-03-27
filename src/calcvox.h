@@ -10,6 +10,7 @@
 #include <iomanip>
 #include "evox.h"
 #include <Metro.h>
+#include "history.h"
 
 #define TalkSerial Serial4 //rx 16, tx 17
 
