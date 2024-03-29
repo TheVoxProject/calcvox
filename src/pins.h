@@ -22,5 +22,5 @@ Keypad keypad = Keypad(makeKeymap(keys), rows, cols, ROWS, COLUMNS);
 #define RotaryA 20
 #define RotaryB 21
 #define RotaryButton 22
-#define Buzzer 14 // not implemented yet 
+#define Buzzer 18 // not implemented yet 
 #endif

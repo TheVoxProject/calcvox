@@ -112,6 +112,11 @@ void setup() {
 #endif
     Serial.begin(115200);
     TalkSerial.begin(115200);
+
+	// startup tone
+	tone(Buzzer, 1000);
+	delay(100);
+	tone(Buzzer, 2000);
 }
 
 void loop() {
