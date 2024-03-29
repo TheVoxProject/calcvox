@@ -92,13 +92,9 @@ std::string convert_character(const std::string character) {
         {"=", "equals"},
         {"clockwise", "clockwise"},
         {"counterclockwise", "counterclockwise"},
-        {"all_clear", "all clear"},
-        {"delete", "delete"}
     };
     auto it = char_map.find(character);
-    if (it == char_map.end()) {
-        return "";
-    }
+    if (it == char_map.end()) return "";
     return it->second;
 }
 
@@ -165,9 +161,9 @@ void loop() {
         hist.scroll_up();
     else if (keypad.isPressed('D'))
         hist.scroll_down();
-    else {
+    /* else {
         std::string to_speak = convert_character(get_key());
         TalkSerial.println(to_speak.c_str());
         current_equation += get_key();
-    }
+    } */
 }
