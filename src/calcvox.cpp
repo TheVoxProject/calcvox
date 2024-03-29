@@ -116,7 +116,11 @@ void setup() {
 	// startup tone
 	tone(Buzzer, 1000);
 	delay(100);
+	noTone(Buzzer);
+	delay(50);
 	tone(Buzzer, 2000);
+	delay(100);
+	noTone(Buzzer);
 }
 
 void loop() {
