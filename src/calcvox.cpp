@@ -113,14 +113,14 @@ void setup() {
     Serial.begin(115200);
     TalkSerial.begin(115200);
 
-	// startup tone
-	tone(Buzzer, 1000);
-	delay(100);
-	noTone(Buzzer);
-	delay(50);
-	tone(Buzzer, 2000);
-	delay(100);
-	noTone(Buzzer);
+    // startup tone
+    tone(Buzzer, 1000);
+    delay(100);
+    noTone(Buzzer);
+    delay(50);
+    tone(Buzzer, 2000);
+    delay(100);
+    noTone(Buzzer);
 }
 
 void loop() {
@@ -135,13 +135,13 @@ void loop() {
         }
     }
 #endif
-    if (key_pressed("=")) {
+    if (keypad.isPressed('=')) {
         std::string result = std::to_string(evox(current_equation));
         Serial.println(result.c_str());
         TalkSerial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
         current_equation = "";
     }
-    else if (key_pressed("all_clear")) {
+    else if (keypad.isPressed('C')) {
         if (!current_equation.empty()) {
             current_equation = "";
             TalkSerial.println("All clear");
@@ -149,7 +149,7 @@ void loop() {
             TalkSerial.println("Empty");
         }
     }
-    else if (key_pressed("delete")) {
+    else if (keypad.isPressed('d')) {
         if (!current_equation.empty()) {
             std::string last_char = convert_character(current_equation.substr(current_equation.length() - 1));
             current_equation.pop_back();
@@ -158,12 +158,12 @@ void loop() {
             TalkSerial.println("Empty");
         }
     }
-    else if (key_pressed("repeat")) {
+    else if (keypad.isPressed('r')) {
         TalkSerial.println(current_equation.c_str()); // temp for testing layout likely bad. says "5 to 1" not "5 minus 1"
     }
-    else if (key_pressed("U"))
+    else if (keypad.isPressed('U'))
         hist.scroll_up();
-    else if (key_pressed("D"))
+    else if (keypad.isPressed('D'))
         hist.scroll_down();
     else {
         std::string to_speak = convert_character(get_key());
