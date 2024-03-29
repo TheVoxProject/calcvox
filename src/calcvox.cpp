@@ -56,18 +56,6 @@ bool key_pressed(const std::string& key) {
     return false;
 }
 
-std::string get_key() {
-    char key = keypad.getKey();
-    if (key != NO_KEY) {
-        auto it = special_keys.find(key);
-        if (it != special_keys.end()) {
-            return it->second;
-        }
-        return std::string(1, key);
-    }
-    return "";
-}
-
 std::string convert_character(const std::string character) {
     static const std::map<std::string, std::string> char_map = {
         {"0", "0"},
@@ -137,7 +125,7 @@ void loop() {
         TalkSerial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
         current_equation = "";
     }
-    else if (keypad.isPressed('C')) {
+    else if (keypad.isPressed('a')) {
         if (!current_equation.empty()) {
             current_equation = "";
             TalkSerial.println("All clear");
@@ -154,16 +142,18 @@ void loop() {
             TalkSerial.println("Empty");
         }
     }
-    else if (keypad.isPressed('r')) {
+    else if (keypad.isPressed('A')) {
         TalkSerial.println(current_equation.c_str()); // temp for testing layout likely bad. says "5 to 1" not "5 minus 1"
     }
     else if (keypad.isPressed('U'))
         hist.scroll_up();
     else if (keypad.isPressed('D'))
         hist.scroll_down();
-    /* else {
-        std::string to_speak = convert_character(get_key());
-        TalkSerial.println(to_speak.c_str());
-        current_equation += get_key();
-    } */
+    else {
+        char key = keypad.getKey();
+        if (key != NO_KEY) {
+            TalkSerial.println(key);
+            current_equation += key;
+        }
+    }
 }
