@@ -146,9 +146,9 @@ void loop() {
         } else {
             speak("Empty");
         }
-    } else if (keypad.isPressed('A')) {
-        speak(current_equation);
-    } else if (keypad.isPressed('U')) {
+    } else if (keypad.isPressed('A'))
+        speak(last_spoken);
+    else if (keypad.isPressed('U')) {
         hist.scroll_up();
     } else if (keypad.isPressed('D')) {
         hist.scroll_down();
