@@ -94,7 +94,8 @@ void setup() {
     pinMode(RotaryButton, INPUT);
     prevPosition = r.read();
 #endif
-    Serial.begin(115200);
+	evox::init();
+	Serial.begin(115200);
     TalkSerial.begin(115200);
 
     // startup tone
@@ -120,7 +121,7 @@ void loop() {
     }
 #endif
     if (keypad.isPressed('=')) {
-        std::string result = std::to_string(evox(current_equation));
+        std::string result = std::to_string(evox::evox(current_equation));
         Serial.println(result.c_str());
         TalkSerial.println(result.c_str()); // idk why it wouldnt work when saving result a variable but this work. c is magic
         current_equation = "";

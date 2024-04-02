@@ -21,5 +21,5 @@ public:
 
 private:
     std::vector<history_item> buff;
-    int pos;
+    std::vector<history_item>::size_type pos;
 };

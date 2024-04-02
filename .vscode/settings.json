@@ -10,5 +10,6 @@
     "cstring": "cpp",
     "string": "cpp",
     "sstream": "cpp"
-  }
+  },
+  "cmake.sourceDirectory": "C:/Users/Quin/code/calcvox/.pio/libdeps/teensy/evox"
 }

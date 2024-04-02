@@ -1,0 +1,11 @@
+Language:        Cpp
+# Always indent with tab.
+UseTab:          Always
+TabWidth:        4
+IndentWidth:     4
+# Don't wrap lines.
+ColumnLimit:     0
+# Only keep one blank line.
+MaxEmptyLinesToKeep: 1
+# Put braces on the same line.
+BreakBeforeBraces: Attach
