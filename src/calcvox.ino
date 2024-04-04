@@ -127,12 +127,20 @@ void loop() {
         }
     }
     char ckey = keypad.getKey();
-
     if (ckey =='=') {
-        std::string result = std::to_string(evox::evox(current_equation));
-        Serial.println(result.c_str());
-        speak(result);
-        hist.add_item(current_equation, result);
+        double result = evox::evox(current_equation);
+        std::ostringstream oss;
+        oss << std::fixed << std::setprecision(2) << result;
+        std::string result_str = oss.str();
+        if (result_str.find('.') != std::string::npos) {
+            result_str.erase(result_str.find_last_not_of('0') + 1, std::string::npos);
+            if (result_str.back() == '.') {
+                result_str.pop_back();
+            }
+        }
+        Serial.println(result_str.c_str());
+        speak(result_str);
+        hist.add_item(current_equation, result_str);
         current_equation = "";
     } else if (ckey =='a') {
         if (!current_equation.empty()) {
