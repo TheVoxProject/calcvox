@@ -12,6 +12,7 @@ int prevPosition = 0;
 Encoder r = Encoder(RotaryA, RotaryB);
 bool buttonState = false;
 #endif
+boolean toggle = false;
 
 const std::map<char, std::string> special_keys = {
     {'S', "sin("},
@@ -123,8 +124,12 @@ void loop() {
         position = r.read();
         int delta = position - prevPosition;
         if (delta != 0) {
-            speak("#!V " + std::to_string(delta));
+            if (toggle) 
+                speak("#!S " + std::to_string(delta));
+            else 
+                speak("#!V " + std::to_string(delta));
         }
+        return;
     }
     char ckey = keypad.getKey();
     if (ckey =='=') {
@@ -170,6 +175,14 @@ void loop() {
         hist.move_left();
     } else if (ckey == 's') {
         hist.insert_item();
+    }
+    else if (ckey == 'B') {
+        toggle = !toggle;
+        if (toggle) {
+            speak("Speed control");
+        } else {
+            speak("Volume control");
+        }
     } else {
         if (ckey != NO_KEY) {
             speak(std::string(1, ckey));
