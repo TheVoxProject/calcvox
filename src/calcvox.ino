@@ -126,19 +126,21 @@ void loop() {
             speak("#!V " + std::to_string(delta));
         }
     }
-    if (keypad.isPressed('=')) {
+    char ckey = keypad.getKey();
+
+    if (ckey =='=') {
         std::string result = std::to_string(evox::evox(current_equation));
         Serial.println(result.c_str());
         speak(result);
         current_equation = "";
-    } else if (keypad.isPressed('a')) {
+    } else if (ckey =='a') {
         if (!current_equation.empty()) {
             current_equation = "";
             speak("All clear");
         } else {
             speak("Empty");
         }
-    } else if (keypad.isPressed('d')) {
+    } else if (ckey =='d') {
         if (!current_equation.empty()) {
             std::string last_char = convert_character(current_equation.substr(current_equation.length() - 1));
             current_equation.pop_back();
@@ -146,17 +148,17 @@ void loop() {
         } else {
             speak("Empty");
         }
-    } else if (keypad.isPressed('A'))
+    } else if (ckey =='A')
         speak(last_spoken);
-    else if (keypad.isPressed('U')) {
+    else if (ckey =='U') {
+        tone(Buzzer, 1000, 100);
         hist.scroll_up();
-    } else if (keypad.isPressed('D')) {
+    } else if (ckey =='D') {
         hist.scroll_down();
     } else {
-        char key = keypad.getKey();
-        if (key != NO_KEY) {
-            speak(std::string(1, key));
-            current_equation += key;
+        if (ckey != NO_KEY) {
+            speak(std::string(1, ckey));
+            current_equation += ckey;
         }
     }
 }
