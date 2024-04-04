@@ -48,3 +48,38 @@ bool history::set_pos(int new_pos, bool silent) {
     }
     return true;
 }
+
+// Moves left, to the previous type of item in the history
+void history::move_left() {
+    if (type == RESULT) {
+        type = EQUATION;
+        speak("Equation");
+    }
+}
+
+// Moves right, to the next type of item in the history
+void history::move_right() {
+    if (type == EQUATION) {
+        type = RESULT;
+        speak("Result");
+    }
+}
+
+// Sets the type of the current item in the history
+void history::set_type(history_item_type new_type, bool silent) {
+    type = new_type;
+    if (!silent) {
+        std::string type_str = new_type == EQUATION ? "Equation" : "Result";
+        speak(type_str);
+    }
+}
+
+// Inserts a portion of the focused item into the current equation, dependant on the type selected.
+void history::insert_item() {
+    if (type == EQUATION) {
+        current_equation += buff[pos].equation;
+    } else {
+        current_equation += buff[pos].result;
+    }
+    speak("Inserted");
+}

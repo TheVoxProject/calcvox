@@ -19,12 +19,14 @@
 #define RotaryButton 22
 #define Buzzer 18 // not implemented yet
 
+extern std::string current_equation;
+
 const byte ROWS = 6;
 const byte COLUMNS = 8;
 byte rows[ROWS] = {6, 5, 4, 3, 2, 1};
 byte cols[COLUMNS] = {25, 26, 27, 28, 29, 30, 31, 32};
 char keys[ROWS][COLUMNS] = {
-    {'l', 'o', 'r', 's', '^', 'd', 'U', 'a'},
+    {'l', 'o', 'r', 'q', '^', 'd', 'U', 'a'},
     {'p', 'S', 'C', 'T', '/', 'L', 's', 'R'},
     {'e', '7', '8', '9', '*', 'u', 'D', 'A'},
     {'>', '4', '5', '6', '-', 'u', 'u', 'u'},

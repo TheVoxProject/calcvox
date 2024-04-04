@@ -156,6 +156,12 @@ void loop() {
         hist.scroll_up();
     } else if (ckey =='D') {
         hist.scroll_down();
+    } else if (ckey == 'R') {
+        hist.move_right();
+    } else if (ckey == 'L') {
+        hist.move_left();
+    } else if (ckey == 's') {
+        hist.insert_item();
     } else {
         if (ckey != NO_KEY) {
             speak(std::string(1, ckey));
