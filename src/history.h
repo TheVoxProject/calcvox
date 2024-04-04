@@ -14,6 +14,7 @@ class history {
 public:
     history();
     void clear(bool silent = false);
+    void add_item(const std::string& equation, const std::string& result);
     bool scroll_up();
     bool scroll_down();
     history_item *operator[](size_t index);

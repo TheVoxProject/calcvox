@@ -11,6 +11,12 @@ void history::clear(bool silent) {
     }
 }
 
+// Adds an item to the history given an equation and result
+void history::add_item(const std::string &equation, const std::string &result) {
+    buff.push_back({equation, result});
+    pos = buff.size() - 1;
+}
+
 bool history::scroll_down() {
     if (buff.empty() || pos >= (buff.size() - 1))
         return false;

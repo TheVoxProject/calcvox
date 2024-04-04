@@ -132,6 +132,7 @@ void loop() {
         std::string result = std::to_string(evox::evox(current_equation));
         Serial.println(result.c_str());
         speak(result);
+        hist.add_item(current_equation, result);
         current_equation = "";
     } else if (ckey =='a') {
         if (!current_equation.empty()) {
@@ -148,9 +149,9 @@ void loop() {
         } else {
             speak("Empty");
         }
-    } else if (ckey =='A')
+    } else if (ckey =='A') {
         speak(last_spoken);
-    else if (ckey =='U') {
+    } else if (ckey =='U') {
         tone(Buzzer, 1000, 100);
         hist.scroll_up();
     } else if (ckey =='D') {
