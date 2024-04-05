@@ -34,7 +34,7 @@ const std::map<char, std::string> special_keys = {
 	{'d', "delete"},
 	{'A', "repeat"}};
 
-bool key_pressed(const std::string &key) {
+bool key_pressed(const std::string& key) {
 	/* TODO: Figure out how to make this work.
     	#if defined(UseRotary)
     if (buttonTimer.check()) {
@@ -90,7 +90,7 @@ std::string convert_character(const std::string character) {
 std::string last_spoken; // for repeat
 
 // Speaks an std::string using the TTS engine over serial
-void speak(const std::string &text) {
+void speak(const std::string& text) {
 	TalkSerial.println(text.c_str());
 	last_spoken = text;
 }
@@ -167,7 +167,6 @@ void loop() {
 	} else if (ckey == 'A') {
 		speak(last_spoken);
 	} else if (ckey == 'U') {
-		tone(Buzzer, 1000, 100);
 		hist.scroll_up();
 	} else if (ckey == 'D') {
 		hist.scroll_down();
