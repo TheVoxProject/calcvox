@@ -17,7 +17,7 @@
 #define RotaryA 20
 #define RotaryB 21
 #define RotaryButton 22
-#define Buzzer 18 // not implemented yet
+#define Buzzer 18
 
 extern std::string current_equation;
 
@@ -38,5 +38,6 @@ Keypad keypad = Keypad(makeKeymap(keys), rows, cols, ROWS, COLUMNS);
 
 void speak(const std::string &text);
 bool key_pressed(const std::string &key);
+void beep(int frequency, int duration);
 
 #endif

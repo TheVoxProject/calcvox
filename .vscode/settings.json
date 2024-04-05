@@ -1,7 +1,7 @@
 {
   "astylercPath": "${workspaceFolder}/.astylerc.json",
   "[cpp]": {
-    "editor.defaultFormatter": "chiehyu.vscode-astyle"
+    "editor.defaultFormatter": "psycha0s.cpp-format"
   },
   "cSpell.words": [
     "CALCVOX"
