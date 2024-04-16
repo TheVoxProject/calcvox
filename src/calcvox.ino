@@ -185,7 +185,7 @@ void loop() {
 		}
 	} else {
 		if (ckey != NO_KEY) {
-			speak(std::string(1, ckey));
+			speak(convert_character(std::string(1, ckey)));
 			current_equation += ckey;
 		}
 	}
