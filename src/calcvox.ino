@@ -146,7 +146,7 @@ void loop() {
 			}
 		}
 		Serial.println(result_str.c_str());
-		speak(result_str);
+		speak("Equals " + result_str);
 		hist.add_item(current_equation, result_str);
 		current_equation = "";
 	} else if (ckey == 'a') {
