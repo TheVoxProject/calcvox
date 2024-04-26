@@ -1,5 +1,6 @@
 #include "calcvox.h"
 #include "evox.hpp"
+#include "tinyexpr.h"
 #include "history.h"
 #include "menu.h"
 
