@@ -1,40 +1,61 @@
 ﻿XIncludeFile "Eval.pbi"
 EnableExplicit
 
-Enumeration Modes
-	#Mode_ScientificMath
-	#Mode_UnitConversion
-	#Mode_BinaryConversion
-	#Mode_CurrencyConversion
+Enumeration Windows
+	#WndMain
 EndEnumeration
 
 Enumeration Gadgets
-	#Txt_Modes
-	#Cmb_Modes
+	#PnlMain
+	
+	#TxtEquation
+	#StrEquation
+	#TxtResult
+	#EdtResult
+	
+	#TxtInBinFormat
+	#CmbInBinFormat
+	#TxtOutBinFormat
+	#CmbOutBinFormat
+	
+	#TxtInCurrency
+	#CmbInCurrency
+	#TxtOutCurrency
+	#CmbOutCurrency
+	
+	#TxtInUnit
+	#CmbInUnit
+	#TxtOutUnit
+	#CmbOutUnit
+	
+	#BtnSolve
 EndEnumeration
 
-Procedure$ ModeToString(Mode)
-	Protected Res$
-	Select Mode
-		Case #Mode_BinaryConversion: Res$ = "Binary/hex conversion"
-		Case #Mode_CurrencyConversion: Res$ = "Currency conversion"
-		Case #Mode_ScientificMath: Res$ = "Scientific math"
-		Case #Mode_UnitConversion: Res$ = "Unit conversion"
-		Default: Res$ = "Unknown mode"
+Enumeration Shortcuts
+	#ShrtEscape
+EndEnumeration
+
+Procedure MenuEvents()
+	Select EventMenu()
+		Case #ShrtEscape
+			PostEvent(#PB_Event_CloseWindow)
 	EndSelect
-	ProcedureReturn Res$
 EndProcedure
 
-Macro AddMode(_mode): AddGadgetItem(#Cmb_Modes, -1, ModeToString(_mode)): EndMacro
+OpenWindow(#WndMain, #PB_Ignore, #PB_Ignore, 600, 480, "Calcvox")
+PanelGadget(#PnlMain, 0, 0, 300, 200)
+AddGadgetItem(#PnlMain, -1, "Scientific math")
+TextGadget(#TxtEquation, 15, 15, 20, 5, "Equation")
+StringGadget(#StrEquation, 15, 25, 80, 20, "")
+TextGadget(#TxtResult, 150, 15, 20, 5, "Result")
+EditorGadget(#EdtResult, 150, 25, 200, 100, #PB_Editor_ReadOnly)
+AddGadgetItem(#PnlMain, -1, "Binary conversion")
+AddGadgetItem(#PnlMain, -1, "Currency conversion")
+AddGadgetItem(#PnlMain, -1, "Unit conversion")
+CloseGadgetList()
+ButtonGadget(#BtnSolve, 15, 430, 30, 30, "Solve")
+AddKeyboardShortcut(#WndMain, #PB_Shortcut_Escape, #ShrtEscape)
+BindEvent(#PB_Event_Menu, @MenuEvents())
+SetActiveGadget(#PnlMain)
 
-OpenWindow(0, 0, 0, 600, 480, "Calcvox", #PB_Window_SystemMenu | #PB_Window_MinimizeGadget | #PB_Window_MaximizeGadget)
-TextGadget(#Txt_Modes, 5, 5, 20, 5, "Mode:")
-ComboBoxGadget(#Cmb_Modes, 5, 15, 100, 20)
-AddMode(#Mode_ScientificMath)
-AddMode(#Mode_BinaryConversion)
-AddMode(#Mode_CurrencyConversion)
-AddMode(#Mode_UnitConversion)
-SetGadgetState(#Cmb_Modes, 0)
-SetActiveGadget(#Cmb_Modes)
-
-Repeat: Until WaitWindowEvent(1) = #PB_Event_CloseWindow
+Repeat : Until WaitWindowEvent(1) = #PB_Event_CloseWindow
