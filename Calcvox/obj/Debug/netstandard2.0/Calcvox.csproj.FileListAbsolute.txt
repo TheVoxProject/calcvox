@@ -1,6 +1,0 @@
-C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\netstandard2.0\Calcvox.csproj.AssemblyReference.cache
-C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\netstandard2.0\Calcvox.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\netstandard2.0\Calcvox.AssemblyInfoInputs.cache
-C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\netstandard2.0\Calcvox.AssemblyInfo.cs
-C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\netstandard2.0\Calcvox.csproj.CoreCompileInputs.cache
-C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\netstandard2.0\Calcvox.sourcelink.json
