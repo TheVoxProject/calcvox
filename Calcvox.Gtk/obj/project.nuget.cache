@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "yuUidJ9ijEE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quin\\git\\calcvox\\Calcvox.Gtk\\Calcvox.Gtk.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quin\\.nuget\\packages\\atksharp\\3.24.24.95\\atksharp.3.24.24.95.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\cairosharp\\3.24.24.95\\cairosharp.3.24.24.95.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\eto.forms\\2.9.0\\eto.forms.2.9.0.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\eto.platform.gtk\\2.9.0\\eto.platform.gtk.2.9.0.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\gdksharp\\3.24.24.95\\gdksharp.3.24.24.95.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\giosharp\\3.24.24.95\\giosharp.3.24.24.95.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\glibsharp\\3.24.24.95\\glibsharp.3.24.24.95.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\gtksharp\\3.24.24.95\\gtksharp.3.24.24.95.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\pangosharp\\3.24.24.95\\pangosharp.3.24.24.95.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.17\\microsoft.netcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.17\\microsoft.windowsdesktop.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.17\\microsoft.aspnetcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.17\\microsoft.netcore.app.host.win-x64.8.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

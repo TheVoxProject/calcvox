@@ -1,0 +1,13 @@
+C:\Users\Quin\git\calcvox\Calcvox\bin\Debug\net9.0\Calcvox.deps.json
+C:\Users\Quin\git\calcvox\Calcvox\bin\Debug\net9.0\Calcvox.dll
+C:\Users\Quin\git\calcvox\Calcvox\bin\Debug\net9.0\Calcvox.pdb
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\Calcvox.csproj.AssemblyReference.cache
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\Calcvox.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\Calcvox.AssemblyInfoInputs.cache
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\Calcvox.AssemblyInfo.cs
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\Calcvox.csproj.CoreCompileInputs.cache
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\Calcvox.sourcelink.json
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\Calcvox.dll
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\refint\Calcvox.dll
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\Calcvox.pdb
+C:\Users\Quin\git\calcvox\Calcvox\obj\Debug\net9.0\ref\Calcvox.dll

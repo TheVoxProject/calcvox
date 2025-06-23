@@ -1,0 +1,119 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "Calcvox.WinForms/1.0.0": {
+        "dependencies": {
+          "Calcvox": "1.0.0",
+          "Eto.Platform.Windows": "2.9.0"
+        },
+        "runtime": {
+          "Calcvox.WinForms.dll": {}
+        }
+      },
+      "Eto.Forms/2.9.0": {
+        "runtime": {
+          "lib/net6.0/Eto.dll": {
+            "assemblyVersion": "2.9.0.0",
+            "fileVersion": "2.9.9128.32678"
+          }
+        }
+      },
+      "Eto.Platform.Windows/2.9.0": {
+        "dependencies": {
+          "Eto.Forms": "2.9.0",
+          "Microsoft-WindowsAPICodePack-Shell": "1.1.4",
+          "System.Resources.Extensions": "7.0.0"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Eto.WinForms.dll": {
+            "assemblyVersion": "2.9.0.0",
+            "fileVersion": "2.9.9128.32679"
+          }
+        }
+      },
+      "Microsoft-WindowsAPICodePack-Core/1.1.4": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.WindowsAPICodePack.dll": {
+            "assemblyVersion": "1.1.4.0",
+            "fileVersion": "1.1.4.0"
+          }
+        }
+      },
+      "Microsoft-WindowsAPICodePack-Shell/1.1.4": {
+        "dependencies": {
+          "Microsoft-WindowsAPICodePack-Core": "1.1.4"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.WindowsAPICodePack.Shell.dll": {
+            "assemblyVersion": "1.1.4.0",
+            "fileVersion": "1.1.4.0"
+          }
+        }
+      },
+      "System.Resources.Extensions/7.0.0": {},
+      "Calcvox/1.0.0": {
+        "dependencies": {
+          "Eto.Forms": "2.9.0"
+        },
+        "runtime": {
+          "Calcvox.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Calcvox.WinForms/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Eto.Forms/2.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kNluDQuIfgn6B19scKcXT4SDIwwqtQlwGYlxMavFhPilkye1vMu3XtFYdPFIMoqEgZSAzdJkA9rceSd/xmFlyg==",
+      "path": "eto.forms/2.9.0",
+      "hashPath": "eto.forms.2.9.0.nupkg.sha512"
+    },
+    "Eto.Platform.Windows/2.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-44g/OyjpoxNR/3CdmP7PQ6r+5DC/PjF6pchUCJlXaTu7OkqvFAUjGQ0t6uc/XigxVAac+zVLmQnvUoglQ6UJRQ==",
+      "path": "eto.platform.windows/2.9.0",
+      "hashPath": "eto.platform.windows.2.9.0.nupkg.sha512"
+    },
+    "Microsoft-WindowsAPICodePack-Core/1.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gsEStalyKPTR5/HKyAHYvIoDZTGUTUgIBS1eeGvkjWgDYB7f5aSBFAAJfxhhDsOGDjLs6O0uzw1H0EWYWZGDmg==",
+      "path": "microsoft-windowsapicodepack-core/1.1.4",
+      "hashPath": "microsoft-windowsapicodepack-core.1.1.4.nupkg.sha512"
+    },
+    "Microsoft-WindowsAPICodePack-Shell/1.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EtoEx9Fx3ZGW//sni9TB1vuBvzXIlyG8E2KNaX7bqV240aiU8RP+NmDHd1ox0YKbJDMxq7AWSI2jPhpLMYXKyw==",
+      "path": "microsoft-windowsapicodepack-shell/1.1.4",
+      "hashPath": "microsoft-windowsapicodepack-shell.1.1.4.nupkg.sha512"
+    },
+    "System.Resources.Extensions/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-65ufm9ABXvxRkQ//hMcUDrQXbGWkC7z0WWZAvHlQ6Qv+JmrIwHH1lmX8aXlNlXpIrT9KxDpuZPqJTVqqwzMD8Q==",
+      "path": "system.resources.extensions/7.0.0",
+      "hashPath": "system.resources.extensions.7.0.0.nupkg.sha512"
+    },
+    "Calcvox/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

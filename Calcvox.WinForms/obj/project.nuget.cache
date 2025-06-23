@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "hRW37WYdCOM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quin\\git\\calcvox\\calcvox.winforms\\Calcvox.WinForms.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quin\\.nuget\\packages\\eto.forms\\2.9.0\\eto.forms.2.9.0.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\eto.platform.windows\\2.9.0\\eto.platform.windows.2.9.0.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\microsoft-windowsapicodepack-core\\1.1.4\\microsoft-windowsapicodepack-core.1.1.4.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\microsoft-windowsapicodepack-shell\\1.1.4\\microsoft-windowsapicodepack-shell.1.1.4.nupkg.sha512",
+    "C:\\Users\\Quin\\.nuget\\packages\\system.resources.extensions\\7.0.0\\system.resources.extensions.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
