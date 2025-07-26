@@ -1,7 +1,8 @@
 import wx
+from calcvox.main_window import MainWindow
 
 
 class App(wx.App):
 	def OnInit(self) -> bool:
-		wx.MessageBox("Test", "It works")
+		main_window = MainWindow()
 		return True
