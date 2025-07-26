@@ -28,38 +28,9 @@ class MainWindow(wx.Frame):
 			for label in row:
 				acc_label = accessible_names.get(label)
 				btn = CalcButton(self.panel, label=label, accessible_label=acc_label)
-				btn.Bind(wx.EVT_KEY_DOWN, self.on_key)
 				grid.Add(btn, 0, wx.EXPAND)
 				button_row.append(btn)
 			self.buttons.append(button_row)
 		self.panel.SetSizer(grid)
 		self.Fit()
 		self.Show()
-
-	def on_key(self, event: wx.KeyEvent):
-		key = event.GetKeyCode()
-		ctrl = event.GetEventObject()
-		row, col = self.find_button(ctrl)
-		if key == wx.WXK_LEFT:
-			self.set_focus(row, col - 1)
-		elif key == wx.WXK_RIGHT:
-			self.set_focus(row, col + 1)
-		elif key == wx.WXK_UP:
-			self.set_focus(row - 1, col)
-		elif key == wx.WXK_DOWN:
-			self.set_focus(row + 1, col)
-		elif key in (wx.WXK_TAB, wx.WXK_SHIFT, wx.WXK_PAGEUP, wx.WXK_PAGEDOWN):
-			return  # Suppress tab-like keys
-		else:
-			event.Skip()
-
-	def find_button(self, btn: wx.Button) -> tuple[int, int]:
-		for i, row in enumerate(self.buttons):
-			for j, b in enumerate(row):
-				if b is btn:
-					return i, j
-		return -1, -1
-
-	def set_focus(self, row: int, col: int):
-		if 0 <= row < len(self.buttons) and 0 <= col < len(self.buttons[row]):
-			self.buttons[row][col].SetFocus()
