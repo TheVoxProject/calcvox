@@ -9,6 +9,7 @@ class ButtonAccessible(wx.Accessible):
 		self.accessible_name = accessible_name
 
 	def GetName(self, childId: int) -> tuple[int, str]:
+		_ = childId  # Make pyright happy.
 		return wx.ACC_OK, self.accessible_name
 
 
