@@ -1,7 +1,7 @@
 import wx
 
-from calcvox.calc_button import CalcButton  # Assuming this extends wx.Button
 from calcvox import speech
+from calcvox.calc_button import CalcButton  # Assuming this extends wx.Button
 
 
 class MainWindow(wx.Frame):
@@ -60,5 +60,5 @@ class MainWindow(wx.Frame):
 					return
 		event.Skip()
 
-	def on_btn(self, event):
+	def on_btn(self, _event):
 		speech.speak("test")
