@@ -1,6 +1,7 @@
 import wx
 
 from calcvox.calc_button import CalcButton  # Assuming this extends wx.Button
+from calcvox import speech
 
 
 class MainWindow(wx.Frame):
@@ -29,6 +30,7 @@ class MainWindow(wx.Frame):
 				acc_label = accessible_names.get(label)
 				btn = CalcButton(self.panel, label=label, accessible_label=acc_label)
 				btn.Bind(wx.EVT_KEY_DOWN, self.on_key_down)
+				btn.Bind(wx.EVT_BUTTON, self.on_btn)
 				grid.Add(btn, 0, wx.EXPAND)
 				button_row.append(btn)
 			self.buttons.append(button_row)
@@ -57,3 +59,6 @@ class MainWindow(wx.Frame):
 					self.buttons[new_r][new_c].SetFocus()
 					return
 		event.Skip()
+
+	def on_btn(self, event):
+		speech.speak("test")
