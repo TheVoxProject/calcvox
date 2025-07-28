@@ -19,3 +19,12 @@ class CalcButton(wx.Button):
 		if accessible_label is not None:
 			accessible = ButtonAccessible(self, accessible_label)
 			self.SetAccessible(accessible)
+		self.SetWindowStyle(self.GetWindowStyle() | wx.WANTS_CHARS)
+		self.Bind(wx.EVT_KEY_DOWN, self.on_key_down)
+
+	def on_key_down(self, event: wx.KeyEvent) -> None:
+		key = event.GetKeyCode()
+		if key in (wx.WXK_LEFT, wx.WXK_RIGHT, wx.WXK_UP, wx.WXK_DOWN):
+			event.Skip(False)
+		else:
+			event.Skip()
