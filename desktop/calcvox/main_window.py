@@ -82,4 +82,7 @@ class MainWindow(wx.Frame):
 				self.calc.equation = ""
 		else:
 			self.calc.equation += label
-			speech.speak(label)
+			speech.speak(self.get_speakable_label(btn))
+
+	def get_speakable_label(self, btn: CalcButton) -> str:
+		return btn.accessible_name or btn.Label

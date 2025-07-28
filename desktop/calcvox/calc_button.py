@@ -15,11 +15,11 @@ class ButtonAccessible(wx.Accessible):
 
 class CalcButton(wx.Button):
 	def __init__(self, parent: wx.Window, label: str, accessible_label: str | None = None, **kwargs: Any) -> None:
-		super().__init__(parent, label=label, **kwargs)
+		super().__init__(parent, label=label, style=wx.WANTS_CHARS, **kwargs)
+		self.accessible_name = accessible_label
 		if accessible_label is not None:
 			accessible = ButtonAccessible(self, accessible_label)
 			self.SetAccessible(accessible)
-		self.SetWindowStyle(self.GetWindowStyle() | wx.WANTS_CHARS)
 		self.Bind(wx.EVT_KEY_DOWN, self.on_key_down)
 
 	def on_key_down(self, event: wx.KeyEvent) -> None:
