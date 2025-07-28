@@ -1,12 +1,14 @@
 import wx
 
 from calcvox import speech
-from calcvox.calc_button import CalcButton  # Assuming this extends wx.Button
+from calcvox.calc_button import CalcButton
+from calcvox.calculator import Calculator
 
 
 class MainWindow(wx.Frame):
 	def __init__(self) -> None:
 		super().__init__(None, title="Calcvox")
+		self.calc = Calculator()
 		self.panel = wx.Panel(self)
 		grid = wx.GridSizer(4, 4, 5, 5)
 		self.buttons: list[list[CalcButton]] = []
@@ -27,7 +29,7 @@ class MainWindow(wx.Frame):
 		for _, row in enumerate(labels):
 			button_row = []
 			for _, label in enumerate(row):
-				acc_label = accessible_names.get(label)
+				acc_label = accessible_names.get(label, label)
 				btn = CalcButton(self.panel, label=label, accessible_label=acc_label)
 				btn.Bind(wx.EVT_KEY_DOWN, self.on_key_down)
 				btn.Bind(wx.EVT_BUTTON, self.on_btn)
@@ -53,6 +55,13 @@ class MainWindow(wx.Frame):
 						new_c = max(c - 1, 0)
 					elif key == wx.WXK_RIGHT:
 						new_c = min(c + 1, len(row) - 1)
+					elif key == wx.WXK_BACK:
+						removed = self.calc.backspace()
+						if removed:
+							speech.speak(removed)
+						else:
+							speech.speak("blank")
+						return
 					else:
 						event.Skip()
 						return
@@ -60,5 +69,17 @@ class MainWindow(wx.Frame):
 					return
 		event.Skip()
 
-	def on_btn(self, _event):
-		speech.speak("test")
+	def on_btn(self, event):
+		btn = event.GetEventObject()
+		label = btn.GetLabel()
+		if label == "=":
+			try:
+				result = str(eval(self.calc.equation))
+				speech.speak(f"Equals {result}")
+				self.calc.equation = result
+			except Exception:
+				speech.speak("Error")
+				self.calc.equation = ""
+		else:
+			self.calc.equation += label
+			speech.speak(label)
