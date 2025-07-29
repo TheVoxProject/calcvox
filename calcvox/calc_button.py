@@ -4,16 +4,21 @@ import wx
 
 
 class ButtonAccessible(wx.Accessible):
+	"""Provides a custom accessible name for a button."""
+
 	def __init__(self, button: wx.Button, accessible_name: str) -> None:
 		super().__init__(button)
 		self.accessible_name = accessible_name
 
 	def GetName(self, childId: int) -> tuple[int, str]:
+		"""Return the accessible name."""
 		_ = childId  # Make pyright happy.
 		return wx.ACC_OK, self.accessible_name
 
 
 class CalcButton(wx.Button):
+	"""A button with optional accessibility and key handling."""
+
 	def __init__(self, parent: wx.Window, label: str, accessible_label: str | None = None, **kwargs: Any) -> None:
 		super().__init__(parent, label=label, style=wx.WANTS_CHARS, **kwargs)
 		self.accessible_name = accessible_label
