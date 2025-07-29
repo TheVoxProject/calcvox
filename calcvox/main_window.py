@@ -47,11 +47,7 @@ class MainWindow(wx.Frame):
 		current = self.FindFocus()
 		char = chr(key) if 32 <= key < 127 else ""
 		if shift and key == wx.WXK_BACK:
-			if self.calc.equation == "":
-				speech.speak("Blank")
-				return
-			self.calc.equation = ""
-			speech.speak("Cleared")
+			self.calc.clear()
 			return
 		if key == wx.WXK_BACK:
 			removed = self.calc.backspace()
@@ -103,11 +99,7 @@ class MainWindow(wx.Frame):
 				speech.speak("Error")
 				self.calc.equation = ""
 		elif label == "C":
-			if self.calc.equation == "":
-				speech.speak("Blank")
-				return
-			self.calc.equation = ""
-			speech.speak("Cleared")
+			self.calc.clear()
 		elif label == "B":
 			removed = self.calc.backspace()
 			speech.speak(removed or "blank")
