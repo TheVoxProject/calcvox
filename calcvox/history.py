@@ -20,7 +20,7 @@ class History:
 	_entries: list[HistoryEntry] = field(default_factory=list, init=False, repr=False)
 
 	def add(self, entry: HistoryEntry) -> None:
-		"""Add a new HistoryEntry to the history."""
+		"""Add a new entry to the history."""
 		self._entries.append(entry)
 
 	def clear(self) -> None:
