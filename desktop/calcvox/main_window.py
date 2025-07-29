@@ -10,31 +10,29 @@ class MainWindow(wx.Frame):
 		super().__init__(None, title="Calcvox")
 		self.calc = Calculator()
 		self.panel = wx.Panel(self)
-		grid = wx.GridSizer(4, 4, 5, 5)
 		self.buttons: list[list[CalcButton]] = []
+		grid = wx.GridSizer(4, 4, 5, 5)
 		labels = [
 			["7", "8", "9", "/"],
 			["4", "5", "6", "*"],
 			["1", "2", "3", "-"],
 			["0", ".", "=", "+"],
 		]
+		self.label_to_button = {}
 		accessible_names = {
-			"+": "Plus",
-			"-": "Minus",
-			"*": "Times",
-			"/": "Divided by",
-			"=": "Equals",
-			".": "Point",
+			"+": "Plus", "-": "Minus", "*": "Times",
+			"/": "Divided by", "=": "Equals", ".": "Point"
 		}
-		for _, row in enumerate(labels):
+		for row in labels:
 			button_row = []
-			for _, label in enumerate(row):
+			for label in row:
 				acc_label = accessible_names.get(label, label)
 				btn = CalcButton(self.panel, label=label, accessible_label=acc_label)
 				btn.Bind(wx.EVT_KEY_DOWN, self.on_key_down)
 				btn.Bind(wx.EVT_BUTTON, self.on_btn)
 				grid.Add(btn, 0, wx.EXPAND)
 				button_row.append(btn)
+				self.label_to_button[label] = btn
 			self.buttons.append(button_row)
 		self.panel.SetSizer(grid)
 		self.Fit()
@@ -43,30 +41,33 @@ class MainWindow(wx.Frame):
 	def on_key_down(self, event: wx.KeyEvent):
 		key = event.GetKeyCode()
 		current = self.FindFocus()
+		char = chr(key) if 32 <= key < 127 else ""
+		if char in self.label_to_button:
+			btn = self.label_to_button[char]
+			wx.PostEvent(btn, wx.CommandEvent(wx.EVT_BUTTON.typeId, btn.GetId()))
+			return
+		if key == wx.WXK_BACK:
+			removed = self.calc.backspace()
+			speech.speak(removed or "blank")
+			return
+		directions = {
+			wx.WXK_UP: (-1, 0),
+			wx.WXK_DOWN: (1, 0),
+			wx.WXK_LEFT: (0, -1),
+			wx.WXK_RIGHT: (0, 1),
+		}
 		for r, row in enumerate(self.buttons):
 			for c, btn in enumerate(row):
-				if btn == current:
-					new_r, new_c = r, c
-					if key == wx.WXK_UP:
-						new_r = max(r - 1, 0)
-					elif key == wx.WXK_DOWN:
-						new_r = min(r + 1, len(self.buttons) - 1)
-					elif key == wx.WXK_LEFT:
-						new_c = max(c - 1, 0)
-					elif key == wx.WXK_RIGHT:
-						new_c = min(c + 1, len(row) - 1)
-					elif key == wx.WXK_BACK:
-						removed = self.calc.backspace()
-						if removed:
-							speech.speak(removed)
-						else:
-							speech.speak("blank")
-						return
-					else:
-						event.Skip()
-						return
+				if btn != current:
+					continue
+				if key in directions:
+					dr, dc = directions[key]
+					new_r = max(0, min(r + dr, len(self.buttons) - 1))
+					new_c = max(0, min(c + dc, len(row) - 1))
 					self.buttons[new_r][new_c].SetFocus()
 					return
+				event.Skip()
+				return
 		event.Skip()
 
 	def on_btn(self, event):
@@ -74,6 +75,8 @@ class MainWindow(wx.Frame):
 		label = btn.GetLabel()
 		if label == "=":
 			try:
+				if self.calc.equation == "":
+					return
 				result = str(eval(self.calc.equation))
 				speech.speak(f"Equals {result}")
 				self.calc.equation = result
