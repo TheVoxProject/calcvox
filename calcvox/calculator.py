@@ -7,12 +7,13 @@ from calcvox import speech
 class Calculator:
 	equation: str = ""
 
-	def backspace(self) -> str | None:
-		if not self.equation:
-			return None
+	def backspace(self) -> None:
+		if self.equation == "":
+			speech.speak("Blank")
+			return
 		removed = self.equation[-1]
 		self.equation = self.equation[:-1]
-		return removed
+		speech.speak(removed)
 
 	def clear(self) -> None:
 		if self.equation == "":

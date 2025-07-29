@@ -46,18 +46,16 @@ class MainWindow(wx.Frame):
 		shift = event.ShiftDown()
 		current = self.FindFocus()
 		char = chr(key) if 32 <= key < 127 else ""
-		if shift and key == wx.WXK_BACK:
-			self.calc.clear()
-			return
 		if key == wx.WXK_BACK:
-			removed = self.calc.backspace()
-			speech.speak(removed or "blank")
-			return
+			if shift:
+				self.calc.clear()
+			else:
+				self.calc.backspace()
 		if char in self.label_to_button:
 			btn = self.label_to_button[char]
 			wx.PostEvent(btn, wx.CommandEvent(wx.EVT_BUTTON.typeId, btn.GetId()))
 			return
-		directions = {
+		directions: dict[int, tuple[int, int]] = {
 			wx.WXK_UP: (-1, 0),
 			wx.WXK_DOWN: (1, 0),
 			wx.WXK_LEFT: (0, -1),
@@ -101,11 +99,11 @@ class MainWindow(wx.Frame):
 		elif label == "C":
 			self.calc.clear()
 		elif label == "B":
-			removed = self.calc.backspace()
-			speech.speak(removed or "blank")
+			self.calc.backspace()
 		else:
 			self.calc.equation += label
-			speech.speak(self.get_speakable_label(btn))
+			if isinstance(btn, CalcButton):
+				speech.speak(self.get_speakable_label(btn))
 
 	def get_speakable_label(self, btn: CalcButton) -> str:
 		return btn.accessible_name or btn.Label
