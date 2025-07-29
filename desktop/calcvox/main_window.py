@@ -19,10 +19,7 @@ class MainWindow(wx.Frame):
 			["0", ".", "=", "+"],
 		]
 		self.label_to_button = {}
-		accessible_names = {
-			"+": "Plus", "-": "Minus", "*": "Times",
-			"/": "Divided by", "=": "Equals", ".": "Point"
-		}
+		accessible_names = {"+": "Plus", "-": "Minus", "*": "Times", "/": "Divided by", "=": "Equals", ".": "Point"}
 		for row in labels:
 			button_row = []
 			for label in row:
