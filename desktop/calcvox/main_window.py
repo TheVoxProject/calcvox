@@ -38,10 +38,11 @@ class MainWindow(wx.Frame):
 		self.Fit()
 		self.Show()
 
-	def on_key_down(self, event: wx.KeyEvent):
+	def on_key_down(self, event: wx.KeyEvent) -> None:
 		key = event.GetKeyCode()
 		current = self.FindFocus()
 		char = chr(key) if 32 <= key < 127 else ""
+		print(f"Char: {char}")
 		if char in self.label_to_button:
 			btn = self.label_to_button[char]
 			wx.PostEvent(btn, wx.CommandEvent(wx.EVT_BUTTON.typeId, btn.GetId()))
@@ -72,7 +73,9 @@ class MainWindow(wx.Frame):
 
 	def on_btn(self, event):
 		btn = event.GetEventObject()
-		label = btn.GetLabel()
+		if btn is None:
+			btn = self.FindWindowById(event.GetId())
+		label = btn.Label
 		if label == "=":
 			try:
 				if self.calc.equation == "":
