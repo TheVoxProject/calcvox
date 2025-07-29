@@ -5,6 +5,7 @@ description = "Open-source, light-weight talking calculator."
 requires-python = ">=3.13"
 dependencies = [
     "accessible-output2>=0.17",
+    "sympy>=1.14.0",
     "wxpython>=4.2.3",
 ]
 

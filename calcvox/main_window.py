@@ -1,4 +1,5 @@
 import wx
+from sympy import sympify
 
 from calcvox import speech
 from calcvox.calc_button import CalcButton
@@ -90,7 +91,7 @@ class MainWindow(wx.Frame):
 			try:
 				if self.calc.equation == "":
 					return
-				result = str(eval(self.calc.equation))
+				result = sympify(self.calc.equation).evalf()
 				speech.speak(f"Equals {result}")
 				self.calc.equation = result
 			except Exception:
