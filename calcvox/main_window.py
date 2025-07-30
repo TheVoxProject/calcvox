@@ -1,10 +1,8 @@
 import wx
-from sympy import sympify
 
 from calcvox import speech
 from calcvox.calc_button import CalcButton
 from calcvox.calculator import Calculator
-from calcvox.history import History, HistoryEntry
 from calcvox.history_dialog import HistoryDialog
 
 
@@ -12,7 +10,6 @@ class MainWindow(wx.Frame):
 	def __init__(self) -> None:
 		super().__init__(None, title="Calcvox")
 		self.calc = Calculator()
-		self.history = History()
 		self.panel = wx.Panel(self)
 		self.buttons: list[list[CalcButton]] = []
 		grid = wx.GridSizer(5, 4, 5, 5)
@@ -50,19 +47,16 @@ class MainWindow(wx.Frame):
 		self.Bind(wx.EVT_MENU, self.on_show_history)
 
 	def on_show_history(self, _event):
-		dialog = HistoryDialog(self, self.history)
+		dialog = HistoryDialog(self, self.calc.history)
 		result = dialog.ShowModal()
 		if result == 0:
 			return
-
 		entry_index = abs(result) - 1
 		entry = self.history._entries[entry_index]
-
 		if result > 0:
 			self.calc.equation = entry.result
 		else:
 			self.calc.equation = entry.equation
-
 		dialog.Destroy()
 
 	def on_key_down(self, event: wx.KeyEvent) -> None:
@@ -111,17 +105,7 @@ class MainWindow(wx.Frame):
 			btn = self.FindWindowById(event.GetId())
 		label = btn.Label
 		if label == "=":
-			try:
-				if self.calc.equation == "":
-					return
-				equation = self.calc.equation
-				result = sympify(equation).evalf()
-				speech.speak(f"Equals {result}")
-				self.calc.equation = str(result)
-				self.history.add(HistoryEntry(equation, str(result)))
-			except Exception:
-				speech.speak("Error")
-				self.calc.equation = ""
+			self.calc.evaluate()
 		elif label == "C":
 			self.calc.clear()
 		elif label == "B":
