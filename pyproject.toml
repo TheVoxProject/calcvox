@@ -11,14 +11,16 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "nuitka>=2.7.12",
     "pre-commit>=4.2.0",
     "pyright>=1.1.403",
     "ruff>=0.12.5",
+    "rust-just>=1.42.4",
 ]
 
 [tool.ruff]
 fix = true
-line-length = 160
+line-length = 0
 target-version = "py313"
 
 [tool.ruff.lint]
