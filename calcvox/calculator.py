@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 
+from speechlight import speech
 from sympy import sympify
 
-from calcvox import speech
 from calcvox.history import History, HistoryEntry
 
 
@@ -13,27 +13,27 @@ class Calculator:
 
 	def backspace(self) -> None:
 		if self.equation == "":
-			speech.speak("Blank")
+			speech.say("Blank")
 			return
 		removed = self.equation[-1]
 		self.equation = self.equation[:-1]
-		speech.speak(removed)
+		speech.say(removed)
 
 	def clear(self) -> None:
 		if self.equation == "":
-			speech.speak("Blank")
+			speech.say("Blank")
 			return
 		self.equation = ""
-		speech.speak("Cleared")
+		speech.say("Cleared")
 
 	def evaluate(self) -> None:
 		try:
 			if self.equation == "":
 				return
 			result = sympify(self.equation).evalf()
-			speech.speak(f"Equals {result}")
+			speech.say(f"Equals {result}")
 			self.equation = str(result)
 			self.history.add(HistoryEntry(self.equation, str(result)))
 		except Exception as e:
-			speech.speak(f"Error: {e}")
+			speech.say(f"Error: {e}")
 			self.equation = ""

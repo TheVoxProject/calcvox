@@ -1,6 +1,6 @@
 import wx
+from speechlight import speech
 
-from calcvox import speech
 from calcvox.calc_button import CalcButton
 from calcvox.calculator import Calculator
 from calcvox.history_dialog import HistoryDialog
@@ -20,7 +20,16 @@ class MainWindow(wx.Frame):
 			["1", "2", "3", "-"],
 			["0", ".", "=", "+"],
 		]
-		accessible_names = {"+": "Plus", "-": "Minus", "*": "Times", "/": "Divided by", "=": "Equals", ".": "Point", "B": "Backspace", "C": "Clear"}
+		accessible_names = {
+			"+": "Plus",
+			"-": "Minus",
+			"*": "Times",
+			"/": "Divided by",
+			"=": "Equals",
+			".": "Point",
+			"B": "Backspace",
+			"C": "Clear",
+		}
 		self.label_to_button = {}
 		for row in labels:
 			button_row = []
@@ -113,7 +122,7 @@ class MainWindow(wx.Frame):
 		else:
 			self.calc.equation += label
 			if isinstance(btn, CalcButton):
-				speech.speak(self.get_speakable_label(btn))
+				speech.say(self.get_speakable_label(btn))
 
 	def get_speakable_label(self, btn: CalcButton) -> str:
 		return btn.accessible_name or btn.Label

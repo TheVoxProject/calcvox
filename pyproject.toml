@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Open-source, light-weight talking calculator."
 requires-python = ">=3.13"
 dependencies = [
-    "accessible-output2>=0.17",
+    "speechlight>=2.0.2",
     "sympy>=1.14.0",
     "wxpython>=4.2.3",
 ]
@@ -20,7 +20,7 @@ dev = [
 
 [tool.ruff]
 fix = true
-line-length = 0
+line-length = 120
 target-version = "py313"
 
 [tool.ruff.lint]

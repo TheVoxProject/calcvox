@@ -1,0 +1,9 @@
+- module-name: 'speechlight'
+  dlls:
+    - from_filenames:
+        relative_path: 'speech_libs'
+        prefixes:
+          - ''
+        suffixes:
+          - 'dll'
+      when: 'win32'
