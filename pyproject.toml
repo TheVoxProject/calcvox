@@ -4,8 +4,8 @@ version = "0.1.0"
 description = "Open-source, light-weight talking calculator."
 requires-python = ">=3.13"
 dependencies = [
+    "asteval>=1.0.6",
     "speechlight>=2.0.2",
-    "sympy>=1.14.0",
     "wxpython>=4.2.3",
 ]
 

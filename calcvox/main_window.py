@@ -61,7 +61,7 @@ class MainWindow(wx.Frame):
 		if result == 0:
 			return
 		entry_index = abs(result) - 1
-		entry = self.history._entries[entry_index]
+		entry = self.calc.history._entries[entry_index]
 		if result > 0:
 			self.calc.equation = entry.result
 		else:

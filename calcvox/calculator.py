@@ -1,9 +1,14 @@
+import math
 from dataclasses import dataclass, field
 
+from asteval import Interpreter
 from speechlight import speech
-from sympy import sympify
 
 from calcvox.history import History, HistoryEntry
+
+# Grab all public names from math module
+safe_math_names = {name: obj for name, obj in math.__dict__.items() if not name.startswith("__")}
+aeval = Interpreter(symtable=safe_math_names, use_numpy=False)
 
 
 @dataclass
@@ -30,7 +35,9 @@ class Calculator:
 		try:
 			if self.equation == "":
 				return
-			result = sympify(self.equation).evalf()
+			result = aeval(self.equation)
+			if result is None:
+				raise ValueError("No result")
 			speech.say(f"Equals {result}")
 			self.equation = str(result)
 			self.history.add(HistoryEntry(self.equation, str(result)))
